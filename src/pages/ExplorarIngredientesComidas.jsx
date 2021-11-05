@@ -6,4 +6,4 @@ function ExplorarIngredientesComidas() {
   );
 }
 
-export default Explorar;
+export default ExplorarIngredientesComidas;
