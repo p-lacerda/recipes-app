@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Input from '../components/Input';
 import Button from '../components/Button';
@@ -6,21 +6,17 @@ import Button from '../components/Button';
 
 const Login = (props) => {
   const [loginInfo, setLoginInfo] = useState({ email: '', password: '', disabled: true });
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const MINIMUM_PASSWORD_LENGTH = 6;
-  const handleChange = ({ target: { value, name } }) => {
-    if (name === 'email') {
-      const emailValidation = /^[ ]*([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})[ ]*$/i;
-      if (emailValidation.test(value) && loginInfo.password.length >= MINIMUM_PASSWORD_LENGTH) {
-        setLoginInfo({ ...loginInfo, [name]: value, disabled: false });
-        // console.log(loginInfo);
-        console.log(loginInfo.disabled);
-      }
-    } else {
-      setLoginInfo({ ...loginInfo, [name]: value });
-      console.log(loginInfo);
-    }
-};
+  useEffect(() => {
+    const MINIMUM_PASSWORD_LENGTH = 6;
+    const emailValidation = /^[ ]*([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})[ ]*$/i;
+
+    if (emailValidation.test(email) && password.length > MINIMUM_PASSWORD_LENGTH) {
+      setLoginInfo({ ...loginInfo, email, password, disabled: false });
+    } else { setLoginInfo({ ...loginInfo, email, password, disabled: true }); }
+  }, [email, password]);
 
   const handleClick = () => {
     const { history } = props;
@@ -33,13 +29,13 @@ const Login = (props) => {
       <Input
         type="email"
         name="email"
-        onChange={ handleChange }
+        onChange={ ({ target: { value } }) => setEmail(value) }
         dataTestId="email-input"
       />
       <Input
         type="password"
         name="password"
-        onChange={ handleChange }
+        onChange={ ({ target: { value } }) => setPassword(value) }
         dataTestId="password-input"
       />
       <Button
