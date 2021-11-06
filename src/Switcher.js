@@ -21,7 +21,7 @@ import Perfil from './pages/Perfil';
 function Switcher() {
   return (
     <Switch>
-      <Route exact path="/" render={ (props) => <Login {...props} /> } />
+      <Route exact path="/" component={ Login } />
       <Route exact path="/comidas" component={ Comidas } />
       <Route exact path="/bebidas" component={ Bebidas } />
       <Route exact path="/comidas/:id" component={ ComidasDetalhes } />
