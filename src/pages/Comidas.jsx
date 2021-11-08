@@ -1,10 +1,10 @@
 import React from 'react';
-import HeaderComidas from '../components/HeaderComidas';
+import Header from '../components/Header';
 
 function Comidas() {
   return (
-    <div>
-      <HeaderComidas />
+    <div data-testid="page-title">
+      <Header />
     </div>
 
   );
