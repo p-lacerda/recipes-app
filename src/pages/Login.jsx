@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import Input from '../components/Input';
 import Button from '../components/Button';
 
-afterEach(() => jest.clearAllMocks());
-
-const Login = () => {
-  const history = useHistory();
+const Login = ({ history }) => {
   const [loginInfo, setLoginInfo] = useState({ email: '', password: '', disabled: true });
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,7 +16,7 @@ const Login = () => {
     } else { setLoginInfo({ ...loginInfo, email, password, disabled: true }); }
   }, [email, password]);
 
-  const handleClick = async () => {
+  const handleClick = () => {
     const user = {
       email,
     };

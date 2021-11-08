@@ -8,6 +8,8 @@ import Login from '../pages/Login';
 const EMAIL_ALUNO = 'aluno@trybe.com';
 const SENHA_ALUNO = 'senha123';
 
+afterEach(() => jest.clearAllMocks());
+
 test('testa se o botão existe e está desativado ao entrar na página', () => {
   const { getByText } = renderWithRedux(<Login />);
   const linkElement = getByText(/Entrar/i);
@@ -28,3 +30,14 @@ test('testa se ao digitar algo no input password, o texto aparece', () => {
   userEvent.type(passwordInput, SENHA_ALUNO);
   expect(passwordInput).toHaveValue(SENHA_ALUNO);
 });
+
+// test('testa clique do botão', () => {
+//   const { history } = renderWithRedux(<Login />);
+//   const passwordInput = screen.getByTestId('password-input');
+//   const btnClick = screen.getByTestId('login-submit-btn');
+//   const emailInput = screen.getByTestId('email-input');
+//   userEvent.type(emailInput, EMAIL_ALUNO);
+//   userEvent.type(passwordInput, SENHA_ALUNO);
+//   userEvent.click(btnClick);
+//   expect(history.location.pathname).toBe('/comidas');
+// });
