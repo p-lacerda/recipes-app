@@ -2,7 +2,7 @@ import React from 'react';
 
 function Perfil() {
   return (
-    <p>Peerfil</p>
+    <p>Perfil</p>
   );
 }
 
