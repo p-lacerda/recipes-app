@@ -3,8 +3,8 @@ import Header from '../components/Header';
 
 function Comidas() {
   return (
-    <div data-testid="page-title">
-      <Header />
+    <div>
+      <Header title="Comidas" withSearchButton data-testid="page-title" />
     </div>
 
   );
