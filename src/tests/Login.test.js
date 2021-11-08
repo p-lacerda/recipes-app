@@ -4,6 +4,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRedux from '../helpers';
 import Login from '../pages/Login';
+import App from '../App';
 
 const EMAIL_ALUNO = 'aluno@trybe.com';
 const SENHA_ALUNO = 'senha123';
@@ -31,13 +32,13 @@ test('testa se ao digitar algo no input password, o texto aparece', () => {
   expect(passwordInput).toHaveValue(SENHA_ALUNO);
 });
 
-// test('testa clique do botão', () => {
-//   const { history } = renderWithRedux(<Login />);
-//   const passwordInput = screen.getByTestId('password-input');
-//   const btnClick = screen.getByTestId('login-submit-btn');
-//   const emailInput = screen.getByTestId('email-input');
-//   userEvent.type(emailInput, EMAIL_ALUNO);
-//   userEvent.type(passwordInput, SENHA_ALUNO);
-//   userEvent.click(btnClick);
-//   expect(history.location.pathname).toBe('/comidas');
-// });
+test('testa clique do botão', () => {
+  const { history } = renderWithRedux(<App />);
+  const passwordInput = screen.getByTestId('password-input');
+  const btnClick = screen.getByTestId('login-submit-btn');
+  const emailInput = screen.getByTestId('email-input');
+  userEvent.type(emailInput, EMAIL_ALUNO);
+  userEvent.type(passwordInput, SENHA_ALUNO);
+  userEvent.click(btnClick);
+  expect(history.location.pathname).toBe('/comidas');
+});
