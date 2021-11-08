@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Card from '../components/Card';
 import { drinksThunk } from '../redux/actions';
+import Filtros from '../components/FIltros';
+import { generatesFilters } from '../services/APIs';
 
 function Bebidas(props) {
   const { drinks } = props;
@@ -24,7 +26,7 @@ function Bebidas(props) {
             title={ meal.strDrink }
             key={ meal.strDrink }
           />
-        ))}
+        )) && <Filtros meals={ () => { generatesFilters(drinks.drinks); } } />}
     </section>
   );
 }

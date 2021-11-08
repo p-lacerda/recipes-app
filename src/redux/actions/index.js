@@ -1,4 +1,4 @@
-import getApis from '../../services/APIs';
+import { getApis } from '../../services/APIs';
 
 export const MEALS_INFO = 'MEALS';
 export const DRINKS_INFO = 'COCKTAILS';

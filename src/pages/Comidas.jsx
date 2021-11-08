@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { mealsThunk } from '../redux/actions';
 import Card from '../components/Card';
 import HeaderComidas from '../components/HeaderComidas';
+import Filtros from '../components/FIltros';
+import { generatesFilters } from '../services/APIs';
 
 function Comidas(props) {
   const { meals } = props;
@@ -13,8 +15,6 @@ function Comidas(props) {
     const { mealsInfo } = props;
     mealsInfo();
   }, []);
-
-  console.log(meals);
 
   return (
     <section>
@@ -27,7 +27,9 @@ function Comidas(props) {
             img={ meal.strMealThumb }
             title={ meal.strMeal }
             key={ meal.strMeal }
-          />))}
+          />)) }
+        {meals
+        && <Filtros meals={ () => generatesFilters(meals.meals) } />}
       </div>
     </section>
 
