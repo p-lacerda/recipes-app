@@ -1,8 +1,13 @@
 import React from 'react';
+import Footer from '../components/Footer';
 
 function Bebidas() {
   return (
-    <p>Bebidas</p>
+    <div>
+      <p>Bebidas</p>
+
+      { window.location.pathname === '/bebidas' && <Footer /> }
+    </div>
   );
 }
 

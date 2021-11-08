@@ -1,0 +1,17 @@
+footer {
+  align-items: center;
+  background-color: gainsboro;
+  border-top: 1px solid lightgray;
+  bottom: 0;
+  display: flex;
+  height: 12px;
+  justify-content: space-around;
+  padding-block: 2rem;
+  position: fixed;
+  width: 100%;
+}
+
+footer img {
+  height: 24px;
+  width: 24px;
+}
