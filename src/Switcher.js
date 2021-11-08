@@ -21,42 +21,37 @@ import Perfil from './pages/Perfil';
 function Switcher() {
   return (
     <Switch>
-      <Route exact path="/" render={ (props) => <Login {...props} /> } />
-      <Route exact path="/comidas" component={ Comidas } />
-      <Route exact path="/bebidas" component={ Bebidas } />
-      <Route exact path="/comidas/:id" component={ ComidasDetalhes } />
-      <Route exact path="/bebidas/:id" component={ BebidasDetalhes } />
+      <Route exact path="/" component={ Login } />
+      <Route path="/comidas" component={ Comidas } />
+      <Route path="/bebidas" component={ Bebidas } />
+      <Route path="/comidas/:id" component={ ComidasDetalhes } />
+      <Route path="/bebidas/:id" component={ BebidasDetalhes } />
       <Route
-        exact
         path="/comidas/:id/in-progress"
         component={ ComidasProgresso }
       />
       <Route
-        exact
         path="/bebidas/:id/in-progress"
         component={ BebidasProgresso }
       />
-      <Route exact path="/explorar" component={ Explorar } />
-      <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
-      <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
+      <Route path="/explorar" component={ Explorar } />
+      <Route path="/explorar/comidas" component={ ExplorarComidas } />
+      <Route path="/explorar/bebidas" component={ ExplorarBebidas } />
       <Route
-        exact
         path="/explorar/comidas/ingredientes"
         component={ ExplorarIngredientesComidas }
       />
       <Route
-        exact
         path="/explorar/bebidas/ingredientes"
         component={ ExplorarIngredientesBebidas }
       />
       <Route
-        exact
         path="/explorar/comidas/area"
         component={ ExplorarComidasPorArea }
       />
-      <Route exact path="/perfil" component={ Perfil } />
-      <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
-      <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
+      <Route path="/perfil" component={ Perfil } />
+      <Route path="/receitas-feitas" component={ ReceitasFeitas } />
+      <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
       <Route component={ NotFound } />
     </Switch>
   );

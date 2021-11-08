@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Input from '../components/Input';
 import Button from '../components/Button';
-// import { connect } from 'react-redux';
 
-const Login = (props) => {
+const Login = () => {
+  const history = useHistory();
   const [loginInfo, setLoginInfo] = useState({ email: '', password: '', disabled: true });
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -18,8 +18,16 @@ const Login = (props) => {
     } else { setLoginInfo({ ...loginInfo, email, password, disabled: true }); }
   }, [email, password]);
 
-  const handleClick = () => {
-    const { history } = props;
+  const handleClick = async () => {
+    const user = {
+      email,
+    };
+    // Adiciona chaves mealsToken, cocktailsToken e user, dando a eles seus valores padrões
+    // e adicionando o email do usuário dentro de user
+    localStorage.mealsToken = JSON.stringify(1);
+    localStorage.cocktailsToken = JSON.stringify(1);
+    localStorage.user = JSON.stringify(user);
+
     history.push('/comidas');
   };
 
@@ -40,7 +48,7 @@ const Login = (props) => {
       />
       <Button
         dataTestId="login-submit-btn"
-        onClick={ handleClick }
+        onClick={ () => handleClick() }
         buttonName="Entrar"
         disabled={ loginInfo.disabled }
       />
