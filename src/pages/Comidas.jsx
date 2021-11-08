@@ -1,14 +1,12 @@
 import React from 'react';
+import Header from '../components/Header';
 import Footer from '../components/Footer';
-import HeaderComidas from '../components/HeaderComidas';
 
 function Comidas() {
-  console.log();
-
   return (
     <div>
-      <HeaderComidas />
-
+      <Header title="Comidas" withSearchButton data-testid="page-title" />
+    
       { window.location.pathname === '/comidas' && <Footer /> }
     </div>
 
