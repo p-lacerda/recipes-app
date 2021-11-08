@@ -1,17 +1,29 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
+import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
-import rootReducer from '../redux/reducers';
+import { render } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import rootReducers from '../redux/reducers';
 
-const renderWithRedux = (
+const renderWithRouterAndRedux = (
   component,
-  { initialState, store = createStore(rootReducer, initialState) } = {},
+  {
+    initialState = {},
+    store = createStore(rootReducers, initialState),
+    initialEntries = ['/'],
+    history = createMemoryHistory({ initialEntries }),
+  } = {},
 ) => ({
-  ...render(<Provider store={ store }>{component}</Provider>),
+  ...render(
+    <Router history={ history }>
+      <Provider store={ store }>
+        {component}
+      </Provider>
+    </Router>,
+  ),
+  history,
   store,
-  history: createMemoryHistory(),
 });
 
-export default renderWithRedux;
+export default renderWithRouterAndRedux;
