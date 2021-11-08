@@ -1,26 +1,33 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { mealsThunk } from '../redux/actions';
 import Card from '../components/Card';
 import HeaderComidas from '../components/HeaderComidas';
 import Filtros from '../components/FIltros';
-import { generatesFilters } from '../services/APIs';
 
 function Comidas(props) {
   const { meals } = props;
   const NUM_INDEX_MAX = 12;
+  const arrFilts = ['Beef', 'Breakfast', 'Chicken', 'Dessert', 'Goat'];
+  const [mealsFit, setMealsFit] = useState(meals);
 
   useEffect(() => {
     const { mealsInfo } = props;
     mealsInfo();
   }, []);
 
+  useEffect(() => {
+    setMealsFit(meals);
+  }, [meals]);
+
   return (
     <section>
       <HeaderComidas />
+      {mealsFit
+      && <Filtros filts={ arrFilts } setMealsFit={ setMealsFit } mealsFit={ mealsFit } />}
       <div>
-        { meals && meals.meals.map((meal, index) => (
+        { mealsFit && mealsFit.meals.map((meal, index) => (
           index < NUM_INDEX_MAX
           && <Card
             index={ index }
@@ -28,8 +35,7 @@ function Comidas(props) {
             title={ meal.strMeal }
             key={ meal.strMeal }
           />)) }
-        {meals
-        && <Filtros meals={ () => generatesFilters(meals.meals) } />}
+
       </div>
     </section>
 

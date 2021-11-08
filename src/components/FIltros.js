@@ -1,33 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { generatesFilters } from '../services/APIs';
 
 function Filtros(props) {
-  const { meals } = props;
-  console.log(meals());
+  const { filts, setMealsFit, mealsFit } = props;
+  console.log(filts);
+  console.log(mealsFit);
 
-  //    generatesFilters(meals) {
-  //     const arrFilt = [];
-  //     meals.map((meal) => {
-  //       if (!arrFilt.includes(`${meal.strCategory}`)) {
-  //         arrFilt.push(meal.strCategory);
-  //       }
-  //       return arrFilt;
-  //     });
-  //   }
+  const handleClick = (filt) => {
+    const lastMeal = { ...mealsFit };
+    const newMeals = lastMeal.meals.filter((meal) => meal.strCategory === `${filt}`);
+    console.log(newMeals);
+  };
 
   return (
     <div>
-      {/* {meals && meals.map(
-        (category) => <button type="button" key={ category }>{category}</button>,
-      )} */}
-      oi
+      { filts.map((filt) => (
+        <button
+          data-testid={ `${filt}-category-filter` }
+          key={ filt }
+          type="button"
+          onClick={ () => handleClick(filt) }
+        >
+          {filt}
+        </button>))}
     </div>
   );
 }
 
 Filtros.propTypes = {
-  meals: PropTypes.arrayOf(PropTypes.string).isRequired,
+  filts: PropTypes.arrayOf(PropTypes.string).isRequired,
+  setMealsFit: PropTypes.func.isRequired,
+  mealsFit: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 export default Filtros;
