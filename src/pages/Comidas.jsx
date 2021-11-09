@@ -5,6 +5,8 @@ import { mealsThunk } from '../redux/actions';
 import Card from '../components/Card';
 import HeaderComidas from '../components/HeaderComidas';
 import FiltrosMeal from '../components/FiltroMeal';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function Comidas(props) {
   const { meals } = props;
@@ -23,7 +25,7 @@ function Comidas(props) {
 
   return (
     <section>
-      <HeaderComidas />
+      <Header title="Comidas" withSearchButton data-testid="page-title" />
       {mealsFit
       && <FiltrosMeal
         filts={ arrFilts }
@@ -40,10 +42,9 @@ function Comidas(props) {
             title={ meal.strMeal }
             key={ meal.strMeal }
           />)) }
-
       </div>
+      { window.location.pathname === '/comidas' && <Footer /> }
     </section>
-
   );
 }
 

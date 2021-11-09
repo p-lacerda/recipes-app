@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import Card from '../components/Card';
 import { drinksThunk } from '../redux/actions';
 import FiltrosDrink from '../components/FiltroDrink';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function Bebidas(props) {
   const { drinks } = props;
@@ -22,25 +24,30 @@ function Bebidas(props) {
   }, [drinks]);
 
   return (
-    <section>
-      {drinksFilt
-      && <FiltrosDrink
-        filts={ arrFilts }
-        setRecipe={ setDrinksFilt }
-        recipe={ drinksFilt.drinks }
-        allRecipe={ drinks }
-      />}
-      {drinksFilt
-        && drinksFilt.drinks.map((meal, index) => (
-          index < NUM_INDEX_MAX
-          && <Card
-            index={ index }
-            img={ meal.strDrinkThumb }
-            title={ meal.strDrink }
-            key={ meal.strDrink }
-          />
-        )) }
-    </section>
+    <div data-testid="page-title">
+      <Header />
+      <section>
+        {drinksFilt
+        && <FiltrosDrink
+          filts={ arrFilts }
+          setRecipe={ setDrinksFilt }
+          recipe={ drinksFilt.drinks }
+          allRecipe={ drinks }
+        />}
+        {drinksFilt
+          && drinksFilt.drinks.map((meal, index) => (
+            index < NUM_INDEX_MAX
+            && <Card
+              index={ index }
+              img={ meal.strDrinkThumb }
+              title={ meal.strDrink }
+              key={ meal.strDrink }
+            />
+          )) }
+      </section>
+    
+      { window.location.pathname === '/bebidas' && <Footer /> }    
+    </div>
   );
 }
 
