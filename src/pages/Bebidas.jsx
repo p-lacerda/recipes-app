@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Card from '../components/Card';
@@ -10,17 +10,28 @@ function Bebidas(props) {
   const NUM_INDEX_MAX = 12;
   const arrFilts = [
     'Ordinary Drink', 'Cocktail', 'Milk / Float / Shake', 'Other/Unknown', 'Cocoa'];
+  const [drinksFilt, setDrinksFilt] = useState(drinks);
 
   useEffect(() => {
     const { drinksInfo } = props;
     drinksInfo();
   }, []);
 
+  useEffect(() => {
+    setDrinksFilt(drinks);
+  }, [drinks]);
+
   return (
     <section>
-      <Filtros filts={ arrFilts } />
-      {drinks
-        && drinks.drinks.map((meal, index) => (
+      {drinksFilt
+      && <Filtros
+        filts={ arrFilts }
+        setRecipe={ setDrinksFilt }
+        recipe={ drinksFilt.drinks }
+        allRecipe={ drinks }
+      />}
+      {drinksFilt
+        && drinksFilt.drinks.map((meal, index) => (
           index < NUM_INDEX_MAX
           && <Card
             index={ index }

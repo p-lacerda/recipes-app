@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 function Filtros(props) {
-  const { filts, setMealsFit, mealsFit } = props;
-  console.log(filts);
-  console.log(mealsFit);
+  const { filts, setRecipe, recipe, allRecipe } = props;
+  const [category, setCategory] = useState('');
 
   const handleClick = (filt) => {
-    const lastMeal = { ...mealsFit };
-    const newMeals = lastMeal.meals.filter((meal) => meal.strCategory === `${filt}`);
-    console.log(newMeals);
+    const lastMeal = [...recipe];
+
+    if (filt !== category) {
+      const newMeals = lastMeal.filter((meal) => meal.strCategory === `${filt}`);
+      setRecipe(allRecipe.meals ? { meals: newMeals } : { drinks: newMeals });
+      setCategory(filt);
+    } else {
+      setRecipe(allRecipe);
+      setCategory('');
+    }
   };
 
   return (
@@ -29,8 +35,9 @@ function Filtros(props) {
 
 Filtros.propTypes = {
   filts: PropTypes.arrayOf(PropTypes.string).isRequired,
-  setMealsFit: PropTypes.func.isRequired,
-  mealsFit: PropTypes.arrayOf(PropTypes.any).isRequired,
+  setRecipe: PropTypes.func.isRequired,
+  recipe: PropTypes.arrayOf(PropTypes.any).isRequired,
+  allRecipe: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 export default Filtros;

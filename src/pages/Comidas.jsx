@@ -25,7 +25,12 @@ function Comidas(props) {
     <section>
       <HeaderComidas />
       {mealsFit
-      && <Filtros filts={ arrFilts } setMealsFit={ setMealsFit } mealsFit={ mealsFit } />}
+      && <Filtros
+        filts={ arrFilts }
+        setRecipe={ setMealsFit }
+        recipe={ mealsFit.meals }
+        allRecipe={ meals }
+      />}
       <div>
         { mealsFit && mealsFit.meals.map((meal, index) => (
           index < NUM_INDEX_MAX
