@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Card from '../components/Card';
 import { drinksThunk } from '../redux/actions';
-import Filtros from '../components/FIltros';
+import FiltrosDrink from '../components/FiltroDrink';
 
 function Bebidas(props) {
   const { drinks } = props;
@@ -24,7 +24,7 @@ function Bebidas(props) {
   return (
     <section>
       {drinksFilt
-      && <Filtros
+      && <FiltrosDrink
         filts={ arrFilts }
         setRecipe={ setDrinksFilt }
         recipe={ drinksFilt.drinks }

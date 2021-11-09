@@ -5,6 +5,7 @@ const getApis = async (url) => {
 };
 
 export default getApis;
+
 // export function generatesFilters(meals) {
 //   const arrFilt = [];
 //   meals.map((meal) => {

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { mealsThunk } from '../redux/actions';
 import Card from '../components/Card';
 import HeaderComidas from '../components/HeaderComidas';
-import Filtros from '../components/FIltros';
+import FiltrosMeal from '../components/FiltroMeal';
 
 function Comidas(props) {
   const { meals } = props;
@@ -25,7 +25,7 @@ function Comidas(props) {
     <section>
       <HeaderComidas />
       {mealsFit
-      && <Filtros
+      && <FiltrosMeal
         filts={ arrFilts }
         setRecipe={ setMealsFit }
         recipe={ mealsFit.meals }
