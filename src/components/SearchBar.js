@@ -1,9 +1,14 @@
 import React from 'react';
+import Input from './Input';
 
-function SeachBar() {
+const SeachBar = () => {
+  const handleSearch = ({ target }) => {
+    console.log(target);
+  };
+
   return (
-    <input type="text" name="search" />
+    <Input name="search" data-testid="search-input" onChange={ handleSearch } />
   );
-}
+};
 
 export default SeachBar;
