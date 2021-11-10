@@ -1,0 +1,8 @@
+header {
+  background-color: gainsboro;
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 12px 10px;
+}
+
