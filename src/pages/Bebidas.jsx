@@ -4,11 +4,13 @@ import Footer from '../components/Footer';
 
 function Bebidas() {
   return (
-    <div data-testid="page-title">
-      <Header />
+    <div>
+      { window.location.pathname === '/bebidas'
+      && <Header title="Bebidas" withSearchButton data-testid="page-title" /> }
+
       <p>Bebidas</p>
-    
-      { window.location.pathname === '/bebidas' && <Footer /> }    
+
+      { window.location.pathname === '/bebidas' && <Footer /> }
     </div>
   );
 }
