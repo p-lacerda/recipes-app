@@ -22,7 +22,9 @@ function Bebidas(props) {
 
   useEffect(() => {
     setDrinksFilt(drinks);
+    console.log('oi');
   }, [drinks]);
+
   console.log(drinksFilt);
   return (
     <div data-testid="page-title">
@@ -35,7 +37,7 @@ function Bebidas(props) {
           recipe={ drinksFilt.drinks }
           allRecipe={ drinks }
         />}
-        {drinksFilt
+        { drinksFilt
           && drinksFilt.drinks.map((drink, index) => (
             index < NUM_INDEX_MAX
             && (

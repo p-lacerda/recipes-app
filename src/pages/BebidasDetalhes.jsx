@@ -6,7 +6,7 @@ import RecommendationCard from '../components/RecommendationCard';
 // https://blog.logrocket.com/how-to-use-svgs-in-react/
 import ShareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import { drinksThunkById, drinksThunk } from '../redux/actions';
+import { drinksThunkById, mealsThunk } from '../redux/actions';
 
 function BebidasDetalhes(props) {
   const { match: { params: { id } } } = props;
@@ -17,6 +17,8 @@ function BebidasDetalhes(props) {
     drinksInfoById(id);
     mealsInfo();
   }, []);
+
+  console.log(meals);
 
   const generateIngredients = () => {
     const NUM_INGREDIENTS = 15;
@@ -32,7 +34,7 @@ function BebidasDetalhes(props) {
         { `${ingredient[0]}   ${ingredient[1]}` }
       </li>));
   };
-  console.log(drinksById);
+
   return (
     <div>
       <p>oi</p>
@@ -61,6 +63,7 @@ function BebidasDetalhes(props) {
         </button>
         <h3 data-testid="recipe-category">
           {drinksById.response.drinks[0].strCategory}
+          {(drinksById.response.drinks[0].strAlcoholic)}
         </h3>
         <h3> Ingredientes </h3>
         <ul>
@@ -110,7 +113,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   drinksInfoById: (id) => dispatch(drinksThunkById(id)),
-  mealsInfo: () => dispatch(drinksThunk()),
+  mealsInfo: () => dispatch(mealsThunk()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BebidasDetalhes);

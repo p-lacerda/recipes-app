@@ -118,7 +118,7 @@ ComidasDetalhes.propTypes = {
 
 const mapStateToProps = (state) => ({
   mealsById: state.mealsReducer.mealsInfoByID,
-  drinks: state.drinksReducer.response,
+  drinks: state.drinksReducer.drinksRedu.response,
 });
 
 const mapDispatchToProps = (dispatch) => ({
