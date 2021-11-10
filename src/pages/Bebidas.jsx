@@ -23,7 +23,7 @@ function Bebidas(props) {
   useEffect(() => {
     setDrinksFilt(drinks);
   }, [drinks]);
-
+  console.log(drinksFilt);
   return (
     <div data-testid="page-title">
       <Header />
@@ -39,7 +39,7 @@ function Bebidas(props) {
           && drinksFilt.drinks.map((drink, index) => (
             index < NUM_INDEX_MAX
             && (
-              <Link to={ `bebidas/${drink.idDrink}` }>
+              <Link to={ `/bebidas/${drink.idDrink}` }>
                 <Card
                   index={ index }
                   img={ drink.strDrinkThumb }
@@ -63,7 +63,7 @@ Bebidas.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  drinks: state.drinksReducer.response,
+  drinks: state.drinksReducer.drinksRedu.response,
 });
 
 const mapDispatchToProps = (dispatch) => ({
