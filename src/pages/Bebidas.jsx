@@ -25,7 +25,7 @@ function Bebidas(props) {
 
   return (
     <div data-testid="page-title">
-      <Header />
+      <Header title="Bebidas" withSearchButton />
       <section>
         {drinksFilt
         && <FiltrosDrink
@@ -45,8 +45,8 @@ function Bebidas(props) {
             />
           )) }
       </section>
-    
-      { window.location.pathname === '/bebidas' && <Footer /> }    
+
+      { window.location.pathname === '/bebidas' && <Footer /> }
     </div>
   );
 }
