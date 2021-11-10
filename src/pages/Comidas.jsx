@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { mealsThunk } from '../redux/actions';
 import Card from '../components/Card';
-import HeaderComidas from '../components/HeaderComidas';
+// import HeaderComidas from '../components/HeaderComidas';
 import FiltrosMeal from '../components/FiltroMeal';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -36,12 +37,17 @@ function Comidas(props) {
       <div>
         { mealsFit && mealsFit.meals.map((meal, index) => (
           index < NUM_INDEX_MAX
-          && <Card
-            index={ index }
-            img={ meal.strMealThumb }
-            title={ meal.strMeal }
-            key={ meal.strMeal }
-          />)) }
+          && (
+            <Link to={ `/comidas/${meal.idMeal}` }>
+              <Card
+                index={ index }
+                img={ meal.strMealThumb }
+                title={ meal.strMeal }
+                key={ meal.strMeal }
+              />
+            </Link>)
+
+        )) }
       </div>
       { window.location.pathname === '/comidas' && <Footer /> }
     </section>

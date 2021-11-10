@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Card from '../components/Card';
 import { drinksThunk } from '../redux/actions';
 import FiltrosDrink from '../components/FiltroDrink';
@@ -35,18 +36,23 @@ function Bebidas(props) {
           allRecipe={ drinks }
         />}
         {drinksFilt
-          && drinksFilt.drinks.map((meal, index) => (
+          && drinksFilt.drinks.map((drink, index) => (
             index < NUM_INDEX_MAX
-            && <Card
-              index={ index }
-              img={ meal.strDrinkThumb }
-              title={ meal.strDrink }
-              key={ meal.strDrink }
-            />
+            && (
+              <Link to={ `bebidas/${drink.idDrink}` }>
+                <Card
+                  index={ index }
+                  img={ drink.strDrinkThumb }
+                  title={ drink.strDrink }
+                  key={ drink.strDrink }
+                />
+              </Link>
+
+            )
           )) }
       </section>
-    
-      { window.location.pathname === '/bebidas' && <Footer /> }    
+
+      { window.location.pathname === '/bebidas' && <Footer /> }
     </div>
   );
 }
