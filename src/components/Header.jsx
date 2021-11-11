@@ -3,40 +3,46 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import SearchBar from './SearchBar';
+import './css/Header.css';
 
-function Header({ title, withSearchButton }) {
+const Header = ({ title, withSearchButton }) => {
   const [showSearch, setShowSearch] = useState(false);
 
-  const handleChangeButton = () => {
-    if (showSearch) {
-      setShowSearch(false);
-    } else {
-      setShowSearch(true);
-    }
+  const handleSearch = ({ target }) => {
+    console.log(target);
   };
+
   return (
-    <div>
-      <header>
-        <Link to="/perfil">
-          <img src={ profileIcon } alt="ProfileIcon" data-testid="profile-top-btn" />
-        </Link>
-        <h1 data-testid="page-title">{title}</h1>
-        <div>
-          {withSearchButton && (
-            <button
-              type="button"
-              onClick={ handleChangeButton }
-            >
-              <img src={ searchIcon } alt="Search" data-testid="search-top-btn" />
-            </button>
-          )}
-          {showSearch && <SearchBar />}
-        </div>
-      </header>
-    </div>
+    <header>
+      <Link to="/perfil">
+        <img
+          src={ profileIcon }
+          alt="ProfileIcon"
+          data-testid="profile-top-btn"
+        />
+      </Link>
+
+      <h3 data-testid="page-title">{ title }</h3>
+
+      <div className="search">
+        {withSearchButton && (
+          <button type="button" onClick={ () => setShowSearch(!showSearch) }>
+            <img src={ searchIcon } alt="Search" data-testid="search-top-btn" />
+          </button>
+        )}
+        {showSearch && (
+          <input
+            type="text"
+            name="search"
+            data-testid="search-input"
+            onChange={ handleSearch }
+          />
+        )}
+      </div>
+    </header>
   );
-}
+};
+
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   withSearchButton: PropTypes.bool.isRequired,

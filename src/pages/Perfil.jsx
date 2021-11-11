@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 function Perfil() {
   const history = useHistory();
