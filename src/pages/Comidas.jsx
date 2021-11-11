@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { mealsThunk } from '../redux/actions';
 import Card from '../components/Card';
-import HeaderComidas from '../components/HeaderComidas';
 import FiltrosMeal from '../components/FiltroMeal';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
