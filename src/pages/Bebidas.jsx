@@ -45,8 +45,7 @@ function Bebidas(props) {
             />
           )) }
       </section>
-    
-      { window.location.pathname === '/bebidas' && <Footer /> }    
+      { window.location.pathname === '/bebidas' && <Footer /> }
     </div>
   );
 }
