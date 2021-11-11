@@ -35,6 +35,8 @@ function BebidasDetalhes(props) {
       </li>));
   };
 
+  const MAXIMUM_CARDS_LENGTH = 6;
+
   return (
     <div>
       <p>oi</p>
@@ -74,9 +76,9 @@ function BebidasDetalhes(props) {
           { drinksById.response.drinks[0].strInstructions }
         </p>
 
-        <div>
+        <div className="recommendation__container">
           { meals && meals.meals.map(({ strMealThumb, strMeal }, index) => (
-            index < 2
+            index < MAXIMUM_CARDS_LENGTH
               && (<RecommendationCard
                 img={ strMealThumb }
                 title={ strMeal }
