@@ -1,4 +1,4 @@
-import { MEALS_INFO, MEALS_FILT_INFO } from '../actions';
+import { MEALS_INFO, MEALS_FILT_INFO, MEALS_INFO_BYID } from '../actions';
 
 export const INITIAL_STATE = {
   state: '',
@@ -11,6 +11,8 @@ function foodsReducer(state = INITIAL_STATE, action) {
     return { ...action.payload };
   case MEALS_FILT_INFO:
     return { ...state, mealsFilt: action.payload };
+  case MEALS_INFO_BYID:
+    return { ...state, mealsInfoByID: action.payload };
   default:
     return state;
   }

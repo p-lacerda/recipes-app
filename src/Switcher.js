@@ -22,10 +22,10 @@ function Switcher() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
-      <Route path="/comidas" component={ Comidas } />
-      <Route path="/bebidas" component={ Bebidas } />
-      <Route path="/comidas/:id" component={ ComidasDetalhes } />
-      <Route path="/bebidas/:id" component={ BebidasDetalhes } />
+      <Route exact path="/comidas" component={ Comidas } />
+      <Route exact path="/bebidas" component={ Bebidas } />
+      <Route exact path="/comidas/:id" component={ ComidasDetalhes } />
+      <Route exact path="/bebidas/:id" component={ BebidasDetalhes } />
       <Route
         path="/comidas/:id/in-progress"
         component={ ComidasProgresso }
