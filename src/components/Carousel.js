@@ -1,11 +1,9 @@
 import React from 'react';
 
-const Carousel = () => {
-  return (
-    <div>
-      
-    </div>
-  );
-};
+const Carousel = () => (
+  <div>
+    oi
+  </div>
+);
 
 export default Carousel;
