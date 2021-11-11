@@ -12,6 +12,7 @@
 }
 
 .button-init {
+  bottom: 0px;
   position: fixed;
-  bottom: 0px
 }
+
