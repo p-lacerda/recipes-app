@@ -1,6 +1,7 @@
 import React from 'react';
-import Footer from '../components/Footer';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
+import Explore from '../components/explore';
 
 function Explorar() {
   const checkHeader = () => {
@@ -22,9 +23,9 @@ function Explorar() {
 
   return (
     <div>
+      <Header title="Explorar" withSearchButton={ false } />
+      <Explore />
       { checkHeader() }
-      <p>Explorar</p>
-
       <Footer />
     </div>
   );
