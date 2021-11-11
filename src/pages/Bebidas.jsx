@@ -25,10 +25,11 @@ function Bebidas(props) {
     console.log('oi');
   }, [drinks]);
 
-  console.log(drinksFilt);
   return (
     <div data-testid="page-title">
-      <Header />
+      { window.location.pathname === '/bebidas'
+      && <Header title="Bebidas" withSearchButton data-testid="page-title" /> }
+
       <section>
         {drinksFilt
         && <FiltrosDrink
