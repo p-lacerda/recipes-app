@@ -24,6 +24,7 @@ function Bebidas(props) {
   }, [drinks]);
 
   return (
+<<<<<<< HEAD
     <div>
       <Header title="Bebidas" withSearchButton data-testid="page-title" />
       <section>
@@ -44,6 +45,29 @@ function Bebidas(props) {
               key={ meal.strDrink }
             />
           )) }
+=======
+    <section>
+      { window.location.pathname === '/bebidas'
+      && <Header title="Bebidas" withSearchButton data-testid="page-title" /> }
+    
+      {drinksFilt
+      && <FiltrosDrink
+        filts={ arrFilts }
+        setRecipe={ setDrinksFilt }
+        recipe={ drinksFilt.drinks }
+        allRecipe={ drinks }
+      />}
+      {drinksFilt
+        && drinksFilt.drinks.map((meal, index) => (
+          index < NUM_INDEX_MAX
+          && <Card
+            index={ index }
+            img={ meal.strDrinkThumb }
+            title={ meal.strDrink }
+            key={ meal.strDrink }
+          />
+        )) }
+>>>>>>> cc96f7dc263c6f5c88ebd4c81c68688e2a382434
       </section>
       { window.location.pathname === '/bebidas' && <Footer /> }
     </div>

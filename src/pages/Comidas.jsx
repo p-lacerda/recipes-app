@@ -24,7 +24,9 @@ function Comidas(props) {
 
   return (
     <section>
-      <Header title="Comidas" withSearchButton data-testid="page-title" />
+      { window.location.pathname === '/comidas'
+      && <Header title="Comidas" withSearchButton data-testid="page-title" /> }
+    
       {mealsFit
       && <FiltrosMeal
         filts={ arrFilts }
@@ -42,6 +44,7 @@ function Comidas(props) {
             key={ meal.strMeal }
           />)) }
       </div>
+
       { window.location.pathname === '/comidas' && <Footer /> }
     </section>
   );
