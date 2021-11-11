@@ -23,9 +23,9 @@ function Explorar() {
 
   return (
     <div>
-      <Header title="Explorar" withSearchButton={ false } />
-      <Explore />
+
       { checkHeader() }
+      <Explore />
       <Footer />
     </div>
   );
