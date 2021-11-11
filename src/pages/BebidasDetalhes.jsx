@@ -7,17 +7,21 @@ import RecommendationCard from '../components/RecommendationCard';
 // https://blog.logrocket.com/how-to-use-svgs-in-react/
 import ShareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { drinksThunkById, mealsThunk } from '../redux/actions';
 
 function BebidasDetalhes(props) {
   const { match: { params: { id } } } = props;
   const { match: { url } } = props;
+  const [heartIcon, setHeartIcon] = useState(whiteHeartIcon);
   const { drinksById, drinksInfoById, meals, mealsInfo } = props;
   const ingredients = [];
+  const TIME_OUT = 5000;
+  const [linkCopy, setLinkCopy] = useState('no');
   const [buttonChange, setButtonChange] = useState('Iniciar');
   const history = useHistory();
 
-  console.log(url);
+  console.log(linkCopy);
 
   const verifyProgress = () => {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -35,6 +39,20 @@ function BebidasDetalhes(props) {
 
       },
     };
+
+    const initFavorites = [{
+      id: 0,
+      type: '',
+      area: '',
+      category: '',
+      alcoholicOrNot: '',
+      name: '',
+      image: '',
+    }];
+
+    if (!localStorage.favoriteRecipes) {
+      localStorage.favoriteRecipes = JSON.stringify(initFavorites);
+    }
 
     if (!localStorage.inProgressRecipes) {
       localStorage.inProgressRecipes = JSON.stringify(init);
@@ -60,7 +78,42 @@ function BebidasDetalhes(props) {
     verifyProgress();
   }, []);
 
+  useEffect(() => {
+    setInterval(() => {
+      setLinkCopy('no');
+    }, TIME_OUT);
+  }, [linkCopy]);
+
   console.log(meals);
+
+  const favoriteFunction = () => {
+    let favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const favoriteSave = favoriteRecipes.filter((favorite) => favorite.id === String(id));
+    if (favoriteSave.length === 0) {
+      favoriteRecipes = [
+        {
+          id,
+          type: 'bebida',
+          area: drinksById.response.drinks[0].strInstructions,
+          category: drinksById.response.drinks[0].strCategory,
+          alcoholicOrNot: drinksById.response.drinks[0].strAlcoholic,
+          name: drinksById.response.drinks[0].strDrink,
+          image: drinksById.response.drinks[0].strDrinkThumb,
+        },
+        ...favoriteRecipes,
+      ];
+      localStorage.favoriteRecipes = JSON.stringify(favoriteRecipes);
+    } else {
+      favoriteRecipes.splice(favoriteSave[0], 1);
+      localStorage.favoriteRecipes = JSON.stringify(favoriteRecipes);
+    }
+
+    if (heartIcon === whiteHeartIcon) {
+      setHeartIcon(blackHeartIcon);
+    } else {
+      setHeartIcon(whiteHeartIcon);
+    }
+  };
 
   const generateIngredients = () => {
     const NUM_INGREDIENTS = 15;
@@ -99,7 +152,7 @@ function BebidasDetalhes(props) {
           // Gary Vernon Grubb
           onClick={ () => {
             navigator.clipboard.writeText(`http://localhost:3000${url}`);
-            alert('Link copiado!');
+            setLinkCopy('Link copiado!');
           } }
         >
           <img src={ ShareIcon } alt="Compartilhar" />
@@ -107,9 +160,12 @@ function BebidasDetalhes(props) {
         <button
           type="button"
           data-testid="favorite-btn"
+          onClick={ () => favoriteFunction() }
+          src={ heartIcon }
         >
-          <img src={ whiteHeartIcon } alt="favoritar" />
+          <img src={ heartIcon } alt="favoritar" />
         </button>
+        {linkCopy === 'Link copiado!' && <p>{linkCopy}</p>}
         <h3 data-testid="recipe-category">
           {drinksById.response.drinks[0].strCategory}
           {(drinksById.response.drinks[0].strAlcoholic)}

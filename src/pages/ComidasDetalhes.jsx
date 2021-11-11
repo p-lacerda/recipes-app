@@ -15,6 +15,8 @@ function ComidasDetalhes(props) {
   const { mealsById, mealsInfoById, drinks, drinksInfo } = props;
   const ingredients = [];
   const [buttonChange, setButtonChange] = useState('Iniciar');
+  const TIME_OUT = 5000;
+  const [linkCopy, setLinkCopy] = useState('no');
   const history = useHistory();
 
   const verifyProgress = () => {
@@ -46,6 +48,11 @@ function ComidasDetalhes(props) {
     verifyProgress();
   }, []);
 
+  useEffect(() => {
+    setInterval(() => {
+      setLinkCopy('no');
+    }, TIME_OUT);
+  }, [linkCopy]);
   const handleClickInit = ({ target }) => {
     if (target.innerHTML === 'Iniciar') {
       const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -92,7 +99,7 @@ function ComidasDetalhes(props) {
           data-testid="share-btn"
           onClick={ () => {
             navigator.clipboard.writeText(`http://localhost:3000${url}`);
-            alert('Link copiado!');
+            setLinkCopy('Link copiado!');
           } }
         >
           <img src={ ShareIcon } alt="Compartilhar" />
@@ -103,6 +110,7 @@ function ComidasDetalhes(props) {
         >
           <img src={ whiteHeartIcon } alt="favoritar" />
         </button>
+        {linkCopy === 'Link copiado!' && <p>{linkCopy}</p>}
         <h3 data-testid="recipe-category">
           {mealsById.response.meals[0].strCategory}
         </h3>
