@@ -50,6 +50,7 @@ function Bebidas(props) {
 
       {window.location.pathname === '/bebidas' && <Footer />}
     </div>
+  );
 }
 
 Bebidas.propTypes = {
