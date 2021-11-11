@@ -1,0 +1,12 @@
+.recommendation__container {
+  display: flex;
+  overflow-x: scroll;
+}
+
+.recommendation_carousel {
+  width: 100%;
+}
+
+.recommendation_carousel img {
+  width: 50vw;
+}

@@ -6,7 +6,7 @@ header {
   height: 12px;
   justify-content: space-around;
   padding-block: 2rem;
-  position: fixed;
+  position: sticky;
   top: 0;
   width: 100%;
 }

@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './css/RecommendationCard.css';
 
 const RecommendationCard = ({ img, title, index }) => (
-  <div>
+  <div className="recommendation_carousel" data-testid={ `${index}-recomendation-card` }>
     <img src={ img } alt={ title } />
-    <h3 data-testid={ `${index}-recomendation-card` }>
+    <p data-testid={ `${index}-recomendation-title` }>
       { title }
-    </h3>
+    </p>
   </div>
 );
 
