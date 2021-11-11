@@ -24,29 +24,31 @@ function Bebidas(props) {
   }, [drinks]);
 
   return (
-    <section>
-      { window.location.pathname === '/bebidas'
-      && <Header title="Bebidas" withSearchButton data-testid="page-title" /> }
-    
-      {drinksFilt
-      && <FiltrosDrink
-        filts={ arrFilts }
-        setRecipe={ setDrinksFilt }
-        recipe={ drinksFilt.drinks }
-        allRecipe={ drinks }
-      />}
-      {drinksFilt
-        && drinksFilt.drinks.map((meal, index) => (
-          index < NUM_INDEX_MAX
-          && <Card
-            index={ index }
-            img={ meal.strDrinkThumb }
-            title={ meal.strDrink }
-            key={ meal.strDrink }
-          />
-        )) }
+    <div>
+      <section>
+        {window.location.pathname === '/bebidas'
+          && <Header title="Bebidas" withSearchButton data-testid="page-title" />}
+
+        {drinksFilt
+          && <FiltrosDrink
+            filts={ arrFilts }
+            setRecipe={ setDrinksFilt }
+            recipe={ drinksFilt.drinks }
+            allRecipe={ drinks }
+          />}
+        {drinksFilt
+          && drinksFilt.drinks.map((meal, index) => (
+            index < NUM_INDEX_MAX
+            && <Card
+              index={ index }
+              img={ meal.strDrinkThumb }
+              title={ meal.strDrink }
+              key={ meal.strDrink }
+            />
+          ))}
       </section>
-      { window.location.pathname === '/bebidas' && <Footer /> }
+
+      {window.location.pathname === '/bebidas' && <Footer />}
     </div>
   );
 }
