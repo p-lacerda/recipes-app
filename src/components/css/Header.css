@@ -1,8 +1,41 @@
 header {
+  align-items: center;
   background-color: gainsboro;
+  border-top: 1px solid lightgray;
   display: flex;
-  justify-content: space-between;
-  overflow: hidden;
-  padding: 12px 10px;
+  height: 12px;
+  justify-content: space-around;
+  padding-block: 2rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
+header img {
+  height: 14px;
+  width: 14px;
+}
+
+header button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.search {
+  align-items: center;
+  border: 1px solid gainsboro;
+  border-radius: 18px;
+  display: flex;
+  justify-content: center;
+  padding: 0.4em;
+}
+
+.search input {
+  background-color: white;
+  border: none;
+  border-radius: 18px;
+  height: 100%;
+  outline: none;
+  padding-left: 10px;
+}

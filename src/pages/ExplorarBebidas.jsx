@@ -6,6 +6,8 @@ import Header from '../components/Header';
 function ExplorarBebidas() {
   return (
     <div>
+      {window.location.pathname === '/explorar/bebidas'
+        && <Header title="Explorar Bebidas" data-testid="page-title" />}
       <Header title="Explorar Bebidas" withSearchButton={ false } />
       <Link to="/explorar/bebidas/ingredientes">
         <button

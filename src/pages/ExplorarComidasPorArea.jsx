@@ -6,7 +6,6 @@ function ExplorarComidasPorArea() {
   return (
     <div>
       <Header title="Explorar Origem" withSearchButton />
-
       <Footer />
     </div>
   );

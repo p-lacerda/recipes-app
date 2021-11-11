@@ -5,7 +5,6 @@ import Header from '../components/Header';
 
 function ExplorarComidas() {
   return (
-
     <div>
       <Header title="Explorar Comidas" withSearchButton={ false } />
       <Link to="/explorar/comidas/ingredientes">
