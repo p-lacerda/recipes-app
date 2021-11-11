@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import RecommendationCard from '../components/RecommendationCard';
 // Importando SVG como Componente
 // https://blog.logrocket.com/how-to-use-svgs-in-react/
@@ -10,12 +11,53 @@ import { drinksThunkById, mealsThunk } from '../redux/actions';
 
 function BebidasDetalhes(props) {
   const { match: { params: { id } } } = props;
+  const { match: { url } } = props;
   const { drinksById, drinksInfoById, meals, mealsInfo } = props;
   const ingredients = [];
+  const [buttonChange, setButtonChange] = useState('Iniciar');
+  const history = useHistory();
+
+  console.log(url);
+
+  const verifyProgress = () => {
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (inProgressRecipes.cocktails[id]) {
+      setButtonChange('Continuar Receita');
+    }
+  };
+
+  const initValues = () => {
+    const init = {
+      cocktails: {
+
+      },
+      meals: {
+
+      },
+    };
+
+    if (!localStorage.inProgressRecipes) {
+      localStorage.inProgressRecipes = JSON.stringify(init);
+    }
+  };
+
+  const handleClickInit = ({ target }) => {
+    if (target.innerHTML === 'Iniciar') {
+      const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      inProgressRecipes.cocktails = {
+        ...inProgressRecipes.cocktails,
+        [id]: ingredients,
+      };
+      localStorage.inProgressRecipes = JSON.stringify(inProgressRecipes);
+      setButtonChange('Continuar Receita');
+    }
+  };
 
   useEffect(() => {
+    initValues();
     drinksInfoById(id);
     mealsInfo();
+    verifyProgress();
   }, []);
 
   console.log(meals);
@@ -39,7 +81,6 @@ function BebidasDetalhes(props) {
 
   return (
     <div>
-      <p>oi</p>
       {drinksById
     && (
       <>
@@ -54,6 +95,12 @@ function BebidasDetalhes(props) {
         <button
           type="button"
           data-testid="share-btn"
+          // https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
+          // Gary Vernon Grubb
+          onClick={ () => {
+            navigator.clipboard.writeText(`http://localhost:3000${url}`);
+            alert('Link copiado!');
+          } }
         >
           <img src={ ShareIcon } alt="Compartilhar" />
         </button>
@@ -87,7 +134,18 @@ function BebidasDetalhes(props) {
               )
           ))}
         </div>
-        <button type="button" data-testid="start-recipe-btn">Iniciar</button>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="button-init"
+          onClick={ (e) => {
+            handleClickInit(e);
+            history.push(`/bebidas/${id}/in-progress`);
+          } }
+        >
+          { buttonChange }
+
+        </button>
 
       </>
     )}
@@ -101,6 +159,7 @@ BebidasDetalhes.propTypes = {
   drinks: PropTypes.arrayOf(PropTypes.any).isRequired,
   meals: PropTypes.arrayOf(PropTypes.any).isRequired,
   match: PropTypes.shape({
+    url: PropTypes.string.isRequired,
     params: PropTypes.shape({
       id: PropTypes.string,
     }),

@@ -10,3 +10,8 @@
 .recommendation_carousel img {
   width: 50vw;
 }
+
+.button-init {
+  position: fixed;
+  bottom: 0px
+}

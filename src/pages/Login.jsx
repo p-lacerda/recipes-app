@@ -22,6 +22,7 @@ const Login = () => {
     const user = {
       email,
     };
+
     // Adiciona chaves mealsToken, cocktailsToken e user, dando a eles seus valores padrões
     // e adicionando o email do usuário dentro de user
     localStorage.mealsToken = JSON.stringify(1);
