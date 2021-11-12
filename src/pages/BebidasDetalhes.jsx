@@ -99,7 +99,7 @@ function BebidasDetalhes(props) {
         {
           id,
           type: 'bebida',
-          area: drinksById.response.drinks[0].strArea,
+          area: '',
           category: drinksById.response.drinks[0].strCategory,
           alcoholicOrNot: drinksById.response.drinks[0].strAlcoholic,
           name: drinksById.response.drinks[0].strDrink,

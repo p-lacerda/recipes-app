@@ -85,8 +85,8 @@ function ComidasDetalhes(props) {
           area: mealsById.response.meals[0].strArea,
           category: mealsById.response.meals[0].strCategory,
           alcoholicOrNot: '',
-          name: mealsById.response.meals[0].strDrink,
-          image: mealsById.response.meals[0].strDrinkThumb,
+          name: mealsById.response.meals[0].strMeal,
+          image: mealsById.response.meals[0].strMealThumb,
         },
         ...favoriteRecipes,
       ];
