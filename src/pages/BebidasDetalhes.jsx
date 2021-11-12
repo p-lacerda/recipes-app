@@ -21,12 +21,18 @@ function BebidasDetalhes(props) {
   const [buttonChange, setButtonChange] = useState('Iniciar');
   const history = useHistory();
 
-  console.log(linkCopy);
-
   const verifyProgress = () => {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (inProgressRecipes.cocktails[id]) {
       setButtonChange('Continuar Receita');
+    }
+  };
+
+  const verifyFavorite = () => {
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const filtraFavoID = favorites.filter((favorite) => favorite.id === String(id));
+    if (filtraFavoID.length > 0) {
+      setHeartIcon(blackHeartIcon);
     }
   };
 
@@ -40,15 +46,15 @@ function BebidasDetalhes(props) {
       },
     };
 
-    const initFavorites = [{
-      id: 0,
-      type: '',
-      area: '',
-      category: '',
-      alcoholicOrNot: '',
-      name: '',
-      image: '',
-    }];
+    const initFavorites = [
+      // id: 0,
+      // type: '',
+      // area: '',
+      // category: '',
+      // alcoholicOrNot: '',
+      // name: '',
+      // image: '',
+    ];
 
     if (!localStorage.favoriteRecipes) {
       localStorage.favoriteRecipes = JSON.stringify(initFavorites);
@@ -76,6 +82,7 @@ function BebidasDetalhes(props) {
     drinksInfoById(id);
     mealsInfo();
     verifyProgress();
+    verifyFavorite();
   }, []);
 
   useEffect(() => {
@@ -83,8 +90,6 @@ function BebidasDetalhes(props) {
       setLinkCopy('no');
     }, TIME_OUT);
   }, [linkCopy]);
-
-  console.log(meals);
 
   const favoriteFunction = () => {
     let favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -94,7 +99,7 @@ function BebidasDetalhes(props) {
         {
           id,
           type: 'bebida',
-          area: drinksById.response.drinks[0].strInstructions,
+          area: drinksById.response.drinks[0].strArea,
           category: drinksById.response.drinks[0].strCategory,
           alcoholicOrNot: drinksById.response.drinks[0].strAlcoholic,
           name: drinksById.response.drinks[0].strDrink,
@@ -107,7 +112,6 @@ function BebidasDetalhes(props) {
       favoriteRecipes.splice(favoriteSave[0], 1);
       localStorage.favoriteRecipes = JSON.stringify(favoriteRecipes);
     }
-
     if (heartIcon === whiteHeartIcon) {
       setHeartIcon(blackHeartIcon);
     } else {
@@ -151,7 +155,7 @@ function BebidasDetalhes(props) {
           // https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
           // Gary Vernon Grubb
           onClick={ () => {
-            navigator.clipboard.writeText(`http://localhost:3000${url}`);
+            window.navigator.clipboard.writeText(`http://localhost:3000${url}`);
             setLinkCopy('Link copiado!');
           } }
         >
