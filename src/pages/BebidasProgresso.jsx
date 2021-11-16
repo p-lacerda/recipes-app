@@ -6,7 +6,7 @@ import ShareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Checkbox from '../components/CheckboxBebidas';
-import { initValues } from '../services/localStorage';
+import { initValues, verifyDisableButtonBebidas } from '../services/localStorage';
 
 function BebidasProgresso(props) {
   const { drinksInfoById, drinksById } = props;
@@ -63,6 +63,7 @@ function BebidasProgresso(props) {
     initValues();
     drinksInfoById(id);
     verifyFavorite();
+    verifyDisableButtonBebidas(setDisabled, id);
   }, []);
 
   useEffect(() => {
@@ -84,6 +85,7 @@ function BebidasProgresso(props) {
 
     return ingredients.map((ingredient, ind) => (
       <Checkbox
+        setDisabled={ setDisabled }
         id={ id }
         index={ ind }
         key={ ingredient }

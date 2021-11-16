@@ -43,15 +43,7 @@ function ComidasDetalhes(props) {
 
       },
     };
-    const initFavorites = [
-      // id: 0,
-      // type: '',
-      // area: '',
-      // category: '',
-      // alcoholicOrNot: '',
-      // name: '',
-      // image: '',
-    ];
+    const initFavorites = [];
 
     if (!localStorage.favoriteRecipes) {
       localStorage.favoriteRecipes = JSON.stringify(initFavorites);

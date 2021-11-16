@@ -70,6 +70,8 @@ export const verifyDisableButtonComidas = (setDisabled, id) => {
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   if (!inProgressRecipes.meals[id].length > 0) {
     setDisabled(false);
+  } else {
+    setDisabled(true);
   }
 };
 
@@ -77,5 +79,7 @@ export const verifyDisableButtonBebidas = (setDisabled, id) => {
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   if (!inProgressRecipes.cocktails[id].length > 0) {
     setDisabled(false);
+  } else {
+    setDisabled(true);
   }
 };
