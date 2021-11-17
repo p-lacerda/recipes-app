@@ -36,9 +36,9 @@ function ComidasProgresso(props) {
     }
   };
 
-  // console.log(`${new Date().getDate()}/${new Date().getMonth()}/${new Date().getFullYear()}`);
-
   const finishFunction = () => {
+    const data = new Date();
+    const dataComplete = `${data.getDate()}/${data.getMonth()}/${data.getUTCFullYear()}`;
     let doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (doneRecipes !== undefined) {
       const doneSave = doneRecipes.filter(
@@ -53,8 +53,9 @@ function ComidasProgresso(props) {
           alcoholicOrNot: '',
           name: mealsById.response.meals[0].strMeal,
           image: mealsById.response.meals[0].strMealThumb,
-          doneDate: '',
-          tags: '',
+          doneDate: dataComplete,
+          tags: mealsById.response.meals[0].strTags
+            ? mealsById.response.meals[0].strTags.split(',') : '',
         },
         ...doneRecipes,
         ];
@@ -99,7 +100,16 @@ function ComidasProgresso(props) {
       }
     }
   };
+
+  const createStorageDoneRecipes = () => {
+    if (!localStorage.doneRecipes || localStorage.doneRecipes === undefined) {
+      const init = [];
+      localStorage.setItem('doneRecipes', JSON.stringify(init));
+    }
+  };
+
   useEffect(() => {
+    createStorageDoneRecipes();
     initValues();
     mealsInfoById(id);
     verifyFavorite(id, setHeartIcon, blackHeartIcon);

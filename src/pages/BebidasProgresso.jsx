@@ -36,6 +36,38 @@ function BebidasProgresso(props) {
     }
   };
 
+  const finishFunction = () => {
+    const data = new Date();
+    const dataComplete = `${data.getDate()}/${data.getMonth()}/${data.getUTCFullYear()}`;
+    let doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipes !== undefined) {
+      const doneSave = doneRecipes.filter(
+        (done) => done.id === String(id),
+      );
+      if (doneSave && doneSave.length === 0) {
+        doneRecipes = [{
+          id,
+          type: 'bebida',
+          category: drinksById.response.drinks[0].strCategory,
+          alcoholicOrNot: drinksById.response.drinks[0].strAlcoholic,
+          name: drinksById.response.drinks[0].strDrink,
+          image: drinksById.response.drinks[0].strDrinkThumb,
+          doneDate: dataComplete,
+          tags: drinksById.response.drinks[0].strTags
+            ? drinksById.response.drinks[0].strTags.split(',') : '',
+        },
+        ...doneRecipes,
+        ];
+        localStorage.doneRecipes = JSON.stringify(doneRecipes);
+      } else {
+        doneRecipes.splice(doneSave[0], 1);
+        localStorage.doneRecipes = JSON.stringify(doneRecipes);
+      }
+    }
+    localStorage.doneRecipes = JSON.stringify(doneRecipes);
+    history.push('/receitas-feitas');
+  };
+
   const favoriteFunction = () => {
     let favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (favoriteRecipes !== undefined) {
@@ -154,7 +186,7 @@ function BebidasProgresso(props) {
            className="finish-recipe-btn"
            data-testid="finish-recipe-btn"
            disabled={ disabled }
-           onClick={ () => { history.push('/receitas-feitas'); } }
+           onClick={ () => finishFunction() }
          >
            Finalizar Receita
 
