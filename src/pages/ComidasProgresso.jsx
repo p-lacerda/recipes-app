@@ -36,6 +36,38 @@ function ComidasProgresso(props) {
     }
   };
 
+  // console.log(`${new Date().getDate()}/${new Date().getMonth()}/${new Date().getFullYear()}`);
+
+  const finishFunction = () => {
+    let doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipes !== undefined) {
+      const doneSave = doneRecipes.filter(
+        (done) => done.id === String(id),
+      );
+      if (doneSave && doneSave.length === 0) {
+        doneRecipes = [{
+          id,
+          type: 'comida',
+          area: mealsById.response.meals[0].strArea,
+          category: mealsById.response.meals[0].strCategory,
+          alcoholicOrNot: '',
+          name: mealsById.response.meals[0].strMeal,
+          image: mealsById.response.meals[0].strMealThumb,
+          doneDate: '',
+          tags: '',
+        },
+        ...doneRecipes,
+        ];
+        localStorage.doneRecipes = JSON.stringify(doneRecipes);
+      } else {
+        doneRecipes.splice(doneSave[0], 1);
+        localStorage.doneRecipes = JSON.stringify(doneRecipes);
+      }
+    }
+    localStorage.doneRecipes = JSON.stringify(doneRecipes);
+    history.push('/receitas-feitas');
+  };
+
   const favoriteFunction = () => {
     let favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (favoriteRecipes !== undefined) {
@@ -152,7 +184,7 @@ function ComidasProgresso(props) {
            className="finish-recipe-btn"
            data-testid="finish-recipe-btn"
            disabled={ disabled }
-           onClick={ () => { history.push('/receitas-feitas'); } }
+           onClick={ () => finishFunction() }
          >
            Finalizar Receita
 
