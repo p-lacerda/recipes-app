@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import RecommendationCard from '../components/RecommendationCard';
-
 // Importando SVG como Componente
 // https://blog.logrocket.com/how-to-use-svgs-in-react/
 import ShareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { mealsThunkById, drinksThunk } from '../redux/actions';
+import { initValues } from '../services/localStorage';
 
 function ComidasDetalhes(props) {
   const { match: { params: { id } } } = props;
@@ -35,33 +35,7 @@ function ComidasDetalhes(props) {
       setHeartIcon(blackHeartIcon);
     }
   };
-  const initValues = () => {
-    const init = {
-      cocktails: {
 
-      },
-      meals: {
-
-      },
-    };
-    const initFavorites = [
-      // id: 0,
-      // type: '',
-      // area: '',
-      // category: '',
-      // alcoholicOrNot: '',
-      // name: '',
-      // image: '',
-    ];
-
-    if (!localStorage.favoriteRecipes) {
-      localStorage.favoriteRecipes = JSON.stringify(initFavorites);
-    }
-
-    if (!localStorage.inProgressRecipes) {
-      localStorage.inProgressRecipes = JSON.stringify(init);
-    }
-  };
   useEffect(() => {
     initValues();
     mealsInfoById(id);
@@ -102,14 +76,14 @@ function ComidasDetalhes(props) {
       setHeartIcon(whiteHeartIcon);
     }
   };
-  const handleClickInit = ({ target }) => {
+  const handleClickInit = async ({ target }) => {
     if (target.innerHTML === 'Iniciar') {
       const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
       inProgressRecipes.meals = {
         ...inProgressRecipes.meals,
         [id]: ingredients,
       };
-      localStorage.inProgressRecipes = JSON.stringify(inProgressRecipes);
+      localStorage.inProgressRecipes = await JSON.stringify(inProgressRecipes);
       setButtonChange('Continuar Receita');
     }
   };
@@ -117,21 +91,23 @@ function ComidasDetalhes(props) {
     const NUM_INGREDIENTS = 15;
     const meals = mealsById.response.meals[0];
     for (let i = 1; i <= NUM_INGREDIENTS; i += 1) {
-      if (meals[`strIngredient${i}`] !== '') {
-        ingredients.push([meals[`strIngredient${i}`], meals[`strMeasure${i}`]]);
+      if (meals[`strIngredient${i}`] !== null && meals[`strIngredient${i}`].length > 0) {
+        const ingrediente = `${meals[`strIngredient${i}`]}`;
+        const medida = `${(meals[`strMeasure${i}`] ? meals[`strMeasure${i}`] : '')}`;
+        ingredients.push(`${`${ingrediente} ${medida}`}`);
       }
     }
 
     return ingredients.map((ingredient, ind) => (
-      <li key={ ind } data-testid={ `${ind}-ingredient-name-and-measure` }>
-        { `${ingredient[0]}   ${ingredient[1]}` }
+      <li key={ ingredient } data-testid={ `${ind}-ingredient-name-and-measure` }>
+        { `${ingredient}` }
       </li>));
   };
   const MAXIMUM_CARDS_LENGTH = 6;
 
   return (
     <div>
-      {mealsById
+      {mealsById && mealsById.response.meals.length > 0
     && (
       <>
         <img

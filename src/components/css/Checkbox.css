@@ -1,0 +1,8 @@
+.checked {
+  text-decoration: line-through;
+}
+
+.finish-recipe-btn {
+  bottom: 0;
+  position: fixed;
+}

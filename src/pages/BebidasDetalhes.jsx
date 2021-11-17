@@ -9,6 +9,7 @@ import ShareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { drinksThunkById, mealsThunk } from '../redux/actions';
+import { initValues } from '../services/localStorage';
 
 function BebidasDetalhes(props) {
   const { match: { params: { id } } } = props;
@@ -33,35 +34,6 @@ function BebidasDetalhes(props) {
     const filtraFavoID = favorites.filter((favorite) => favorite.id === String(id));
     if (filtraFavoID.length > 0) {
       setHeartIcon(blackHeartIcon);
-    }
-  };
-
-  const initValues = () => {
-    const init = {
-      cocktails: {
-
-      },
-      meals: {
-
-      },
-    };
-
-    const initFavorites = [
-      // id: 0,
-      // type: '',
-      // area: '',
-      // category: '',
-      // alcoholicOrNot: '',
-      // name: '',
-      // image: '',
-    ];
-
-    if (!localStorage.favoriteRecipes) {
-      localStorage.favoriteRecipes = JSON.stringify(initFavorites);
-    }
-
-    if (!localStorage.inProgressRecipes) {
-      localStorage.inProgressRecipes = JSON.stringify(init);
     }
   };
 
@@ -123,14 +95,17 @@ function BebidasDetalhes(props) {
     const NUM_INGREDIENTS = 15;
     const drinks = drinksById.response.drinks[0];
     for (let i = 1; i <= NUM_INGREDIENTS; i += 1) {
-      if (drinks[`strIngredient${i}`] !== null) {
-        ingredients.push([drinks[`strIngredient${i}`], [drinks[`strMeasure${i}`]]]);
+      if (drinks[`strIngredient${i}`] !== null
+      && drinks[`strIngredient${i}`].length > 0) {
+        const ingrediente = `${drinks[`strIngredient${i}`]}`;
+        const medida = `${(drinks[`strMeasure${i}`] ? drinks[`strMeasure${i}`] : '')}`;
+        ingredients.push(`${`${ingrediente} ${medida}`}`);
       }
     }
 
     return ingredients.map((ingredient, ind) => (
       <li key={ ingredient } data-testid={ `${ind}-ingredient-name-and-measure` }>
-        { `${ingredient[0]}   ${ingredient[1]}` }
+        { `${ingredient}` }
       </li>));
   };
 
@@ -138,7 +113,7 @@ function BebidasDetalhes(props) {
 
   return (
     <div>
-      {drinksById
+      {drinksById && drinksById.response.drinks
     && (
       <>
         <img
