@@ -5,7 +5,8 @@ import Header from '../components/Header';
 
 function Perfil() {
   const history = useHistory();
-  const playerEmail = JSON.parse(localStorage.getItem('user')).email;
+  const playerEmail = JSON.parse(localStorage.getItem('user'))
+    ? JSON.parse(localStorage.getItem('user')).email : '';
 
   const onClick = () => {
     localStorage.clear();
