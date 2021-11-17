@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { mealsThunkById } from '../redux/actions';
 import ShareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import CheckboxComidas from '../components/CheckboxComidas';
-import { initValues, verifyDisableButtonComidas } from '../services/localStorage';
+import { initValues,
+  verifyDisableButtonComidas, verifyFavorite } from '../services/localStorage';
+import '../components/css/Checkbox.css';
 
 function ComidasProgresso(props) {
   const { mealsInfoById, mealsById } = props;
@@ -17,14 +20,19 @@ function ComidasProgresso(props) {
   const [heartIcon, setHeartIcon] = useState(whiteHeartIcon);
   const [disabled, setDisabled] = useState(true);
   const ingredients = [];
+  const history = useHistory();
 
-  const verifyFavorite = () => {
-    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (favorites !== undefined) {
-      const filtraFavoID = favorites.filter((favorite) => favorite.id === String(id));
-      if (filtraFavoID.length > 0) {
-        setHeartIcon(blackHeartIcon);
-      }
+  const verifyInitLocal = () => {
+    const localInProgressive = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (disabled === true && localInProgressive.meals
+      && Object.keys(localInProgressive.meals).length === 0
+    && mealsById !== undefined) {
+      const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      inProgressRecipes.meals = {
+        ...inProgressRecipes.meals,
+        [id]: ingredients,
+      };
+      localStorage.inProgressRecipes = JSON.stringify(inProgressRecipes);
     }
   };
 
@@ -34,7 +42,7 @@ function ComidasProgresso(props) {
       const favoriteSave = favoriteRecipes.filter(
         (favorite) => favorite.id === String(id),
       );
-      if (favoriteSave.length === 0) {
+      if (favoriteSave && favoriteSave.length === 0) {
         favoriteRecipes = [
           {
             id,
@@ -62,7 +70,7 @@ function ComidasProgresso(props) {
   useEffect(() => {
     initValues();
     mealsInfoById(id);
-    verifyFavorite();
+    verifyFavorite(id, setHeartIcon, blackHeartIcon);
     verifyDisableButtonComidas(setDisabled, id);
   }, []);
 
@@ -72,13 +80,19 @@ function ComidasProgresso(props) {
     }, TIME_OUT);
   }, [linkCopy]);
 
+  useEffect(() => {
+    verifyInitLocal();
+  }, [mealsById]);
+
   const generateIngredients = () => {
     const NUM_INGREDIENTS = 15;
     const meals = mealsById.response.meals[0];
     for (let i = 1; i < NUM_INGREDIENTS; i += 1) {
       if (meals[`strIngredient${i}`] !== null
       && meals[`strIngredient${i}`].length > 0) {
-        ingredients.push([meals[`strIngredient${i}`], [meals[`strMeasure${i}`]]]);
+        const medida = `${meals[`strIngredient${i}`]}`;
+        const ingrediente = `${meals[`strMeasure${i}`]}`;
+        ingredients.push(`${`${medida} ${ingrediente}`}`);
       }
     }
 
@@ -88,7 +102,7 @@ function ComidasProgresso(props) {
         id={ id }
         index={ ind }
         key={ ingredient }
-        ingredient={ `${ingredient[0]} ${ingredient[1]}` }
+        ingredient={ ingredient }
       />));
   };
   return (
@@ -135,8 +149,10 @@ function ComidasProgresso(props) {
          </p>
          <button
            type="button"
+           className="finish-recipe-btn"
            data-testid="finish-recipe-btn"
            disabled={ disabled }
+           onClick={ () => { history.push('/receitas-feitas'); } }
          >
            Finalizar Receita
 

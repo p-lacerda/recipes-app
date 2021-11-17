@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { drinksThunkById } from '../redux/actions';
@@ -6,7 +7,9 @@ import ShareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Checkbox from '../components/CheckboxBebidas';
-import { initValues, verifyDisableButtonBebidas } from '../services/localStorage';
+import { initValues,
+  verifyDisableButtonBebidas, verifyFavorite } from '../services/localStorage';
+import '../components/css/Checkbox.css';
 
 function BebidasProgresso(props) {
   const { drinksInfoById, drinksById } = props;
@@ -17,14 +20,19 @@ function BebidasProgresso(props) {
   const [heartIcon, setHeartIcon] = useState(whiteHeartIcon);
   const [disabled, setDisabled] = useState(true);
   const ingredients = [];
+  const history = useHistory();
 
-  const verifyFavorite = () => {
-    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (favorites !== undefined) {
-      const filtraFavoID = favorites.filter((favorite) => favorite.id === String(id));
-      if (filtraFavoID.length > 0) {
-        setHeartIcon(blackHeartIcon);
-      }
+  const verifyInitLocal = () => {
+    const localInProgressive = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (disabled === true && localInProgressive.cocktails
+      && Object.keys(localInProgressive.cocktails).length === 0
+    && drinksById !== undefined) {
+      const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      inProgressRecipes.cocktails = {
+        ...inProgressRecipes.cocktails,
+        [id]: ingredients,
+      };
+      localStorage.inProgressRecipes = JSON.stringify(inProgressRecipes);
     }
   };
 
@@ -34,7 +42,7 @@ function BebidasProgresso(props) {
       const favoriteSave = favoriteRecipes.filter(
         (favorite) => favorite.id === String(id),
       );
-      if (favoriteSave.length === 0) {
+      if (favoriteSave && favoriteSave.length === 0) {
         favoriteRecipes = [
           {
             id,
@@ -62,7 +70,7 @@ function BebidasProgresso(props) {
   useEffect(() => {
     initValues();
     drinksInfoById(id);
-    verifyFavorite();
+    verifyFavorite(id, setHeartIcon, blackHeartIcon);
     verifyDisableButtonBebidas(setDisabled, id);
   }, []);
 
@@ -72,14 +80,19 @@ function BebidasProgresso(props) {
     }, TIME_OUT);
   }, [linkCopy]);
 
+  useEffect(() => {
+    verifyInitLocal();
+  }, [drinksById]);
+
   const generateIngredients = () => {
     const NUM_INGREDIENTS = 15;
     const drinks = drinksById.response.drinks[0];
-    for (let i = 1; i < NUM_INGREDIENTS; i += 1) {
+    for (let i = 1; i <= NUM_INGREDIENTS; i += 1) {
       if (drinks[`strIngredient${i}`] !== null
       && drinks[`strIngredient${i}`].length > 0) {
-        console.log(drinks[`strIngredient${i}`]);
-        ingredients.push([drinks[`strIngredient${i}`], [drinks[`strMeasure${i}`]]]);
+        const ingrediente = `${drinks[`strIngredient${i}`]}`;
+        const medida = `${(drinks[`strMeasure${i}`] ? drinks[`strMeasure${i}`] : '')}`;
+        ingredients.push(`${`${ingrediente} ${medida}`}`);
       }
     }
 
@@ -89,7 +102,7 @@ function BebidasProgresso(props) {
         id={ id }
         index={ ind }
         key={ ingredient }
-        ingredient={ `${ingredient[0]} ${ingredient[1]}` }
+        ingredient={ ingredient }
       />));
   };
   return (
@@ -138,8 +151,10 @@ function BebidasProgresso(props) {
          </p>
          <button
            type="button"
+           className="finish-recipe-btn"
            data-testid="finish-recipe-btn"
            disabled={ disabled }
+           onClick={ () => { history.push('/receitas-feitas'); } }
          >
            Finalizar Receita
 
@@ -158,6 +173,9 @@ BebidasProgresso.propTypes = {
     params: PropTypes.shape({
       id: PropTypes.string,
     }),
+  }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
   }).isRequired,
 };
 

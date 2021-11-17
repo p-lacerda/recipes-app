@@ -68,7 +68,7 @@ export const setCheckLocalStorageMeals = (comp, id, ingredient) => {
 };
 export const verifyDisableButtonComidas = (setDisabled, id) => {
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  if (!inProgressRecipes.meals[id].length > 0) {
+  if (inProgressRecipes.meals[id] && !inProgressRecipes.meals[id].length > 0) {
     setDisabled(false);
   } else {
     setDisabled(true);
@@ -77,9 +77,18 @@ export const verifyDisableButtonComidas = (setDisabled, id) => {
 
 export const verifyDisableButtonBebidas = (setDisabled, id) => {
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  if (!inProgressRecipes.cocktails[id].length > 0) {
+  if (inProgressRecipes.cocktails[id] && !inProgressRecipes.cocktails[id].length > 0) {
     setDisabled(false);
   } else {
     setDisabled(true);
+  }
+};
+export const verifyFavorite = (id, setHeartIcon, blackHeartIcon) => {
+  const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  if (favorites !== undefined) {
+    const filtraFavoID = favorites.filter((favorite) => favorite.id === String(id));
+    if (filtraFavoID.length > 0) {
+      setHeartIcon(blackHeartIcon);
+    }
   }
 };

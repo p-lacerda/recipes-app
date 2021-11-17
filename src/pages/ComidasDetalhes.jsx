@@ -43,7 +43,8 @@ function ComidasDetalhes(props) {
 
       },
     };
-    const initFavorites = [];
+    const initFavorites = [
+    ];
 
     if (!localStorage.favoriteRecipes) {
       localStorage.favoriteRecipes = JSON.stringify(initFavorites);
@@ -93,14 +94,14 @@ function ComidasDetalhes(props) {
       setHeartIcon(whiteHeartIcon);
     }
   };
-  const handleClickInit = ({ target }) => {
+  const handleClickInit = async ({ target }) => {
     if (target.innerHTML === 'Iniciar') {
       const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
       inProgressRecipes.meals = {
         ...inProgressRecipes.meals,
         [id]: ingredients,
       };
-      localStorage.inProgressRecipes = JSON.stringify(inProgressRecipes);
+      localStorage.inProgressRecipes = await JSON.stringify(inProgressRecipes);
       setButtonChange('Continuar Receita');
     }
   };

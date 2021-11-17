@@ -95,7 +95,8 @@ function BebidasDetalhes(props) {
     const NUM_INGREDIENTS = 15;
     const drinks = drinksById.response.drinks[0];
     for (let i = 1; i <= NUM_INGREDIENTS; i += 1) {
-      if (drinks[`strIngredient${i}`] !== null) {
+      if (drinks[`strIngredient${i}`] !== null
+      && drinks[`strIngredient${i}`].length > 0) {
         const ingrediente = `${drinks[`strIngredient${i}`]}`;
         const medida = `${(drinks[`strMeasure${i}`] ? drinks[`strMeasure${i}`] : '')}`;
         ingredients.push(`${`${ingrediente} ${medida}`}`);
