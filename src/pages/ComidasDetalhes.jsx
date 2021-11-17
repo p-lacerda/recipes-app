@@ -9,6 +9,7 @@ import ShareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { mealsThunkById, drinksThunk } from '../redux/actions';
+import { initValues } from '../services/localStorage';
 
 function ComidasDetalhes(props) {
   const { match: { params: { id } } } = props;
@@ -34,26 +35,7 @@ function ComidasDetalhes(props) {
       setHeartIcon(blackHeartIcon);
     }
   };
-  const initValues = () => {
-    const init = {
-      cocktails: {
 
-      },
-      meals: {
-
-      },
-    };
-    const initFavorites = [
-    ];
-
-    if (!localStorage.favoriteRecipes) {
-      localStorage.favoriteRecipes = JSON.stringify(initFavorites);
-    }
-
-    if (!localStorage.inProgressRecipes) {
-      localStorage.inProgressRecipes = JSON.stringify(init);
-    }
-  };
   useEffect(() => {
     initValues();
     mealsInfoById(id);
