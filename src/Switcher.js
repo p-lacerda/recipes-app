@@ -22,10 +22,10 @@ function Switcher() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
-      <Route path="/comidas" component={ Comidas } />
-      <Route path="/bebidas" component={ Bebidas } />
-      <Route path="/comidas/:id" component={ ComidasDetalhes } />
-      <Route path="/bebidas/:id" component={ BebidasDetalhes } />
+      <Route exact path="/comidas" component={ Comidas } />
+      <Route exact path="/bebidas" component={ Bebidas } />
+      <Route exact path="/comidas/:id" component={ ComidasDetalhes } />
+      <Route exact path="/bebidas/:id" component={ BebidasDetalhes } />
       <Route
         path="/comidas/:id/in-progress"
         component={ ComidasProgresso }
@@ -34,18 +34,21 @@ function Switcher() {
         path="/bebidas/:id/in-progress"
         component={ BebidasProgresso }
       />
-      <Route path="/explorar" component={ Explorar } />
-      <Route path="/explorar/comidas" component={ ExplorarComidas } />
-      <Route path="/explorar/bebidas" component={ ExplorarBebidas } />
+      <Route exact path="/explorar" component={ Explorar } />
+      <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
+      <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
       <Route
+        exact
         path="/explorar/comidas/ingredientes"
         component={ ExplorarIngredientesComidas }
       />
       <Route
+        exact
         path="/explorar/bebidas/ingredientes"
         component={ ExplorarIngredientesBebidas }
       />
       <Route
+        exact
         path="/explorar/comidas/area"
         component={ ExplorarComidasPorArea }
       />

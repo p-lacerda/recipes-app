@@ -5,9 +5,7 @@ import Header from '../components/Header';
 function ExplorarComidasPorArea() {
   return (
     <div>
-      <Header title="Explorar Comidas Por Ingredientes" data-testid="page-title" />
-
-      <p>ExplorarComidasPorArea</p>
+      <Header title="Explorar Origem" withSearchButton />
       <Footer />
     </div>
   );

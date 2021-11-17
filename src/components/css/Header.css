@@ -1,12 +1,12 @@
 header {
   align-items: center;
-  background-color: white;
+  background-color: gainsboro;
   border-top: 1px solid lightgray;
   display: flex;
   height: 12px;
   justify-content: space-around;
   padding-block: 2rem;
-  position: fixed;
+  position: sticky;
   top: 0;
   width: 100%;
 }

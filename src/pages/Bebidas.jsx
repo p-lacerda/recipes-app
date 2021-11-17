@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Card from '../components/Card';
 import { drinksThunk } from '../redux/actions';
 import FiltrosDrink from '../components/FiltroDrink';
@@ -21,11 +22,14 @@ function Bebidas(props) {
 
   useEffect(() => {
     setDrinksFilt(drinks);
+    console.log('oi');
   }, [drinks]);
 
   return (
-    <div>
-      <Header title="Bebidas" withSearchButton data-testid="page-title" />
+    <div data-testid="page-title">
+      { window.location.pathname === '/bebidas'
+      && <Header title="Bebidas" withSearchButton data-testid="page-title" /> }
+
       <section>
         {drinksFilt
         && <FiltrosDrink
@@ -34,15 +38,20 @@ function Bebidas(props) {
           recipe={ drinksFilt.drinks }
           allRecipe={ drinks }
         />}
-        {drinksFilt
-          && drinksFilt.drinks.map((meal, index) => (
+        { drinksFilt
+          && drinksFilt.drinks.map((drink, index) => (
             index < NUM_INDEX_MAX
-            && <Card
-              index={ index }
-              img={ meal.strDrinkThumb }
-              title={ meal.strDrink }
-              key={ meal.strDrink }
-            />
+            && (
+              <Link to={ `/bebidas/${drink.idDrink}` }>
+                <Card
+                  index={ index }
+                  img={ drink.strDrinkThumb }
+                  title={ drink.strDrink }
+                  key={ drink.strDrink }
+                />
+              </Link>
+
+            )
           )) }
       </section>
       { window.location.pathname === '/bebidas' && <Footer /> }
@@ -56,7 +65,7 @@ Bebidas.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  drinks: state.drinksReducer.response,
+  drinks: state.drinksReducer.drinksRedu.response,
 });
 
 const mapDispatchToProps = (dispatch) => ({
