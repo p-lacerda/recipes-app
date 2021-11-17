@@ -27,7 +27,6 @@ function Comidas(props) {
     <section>
       { window.location.pathname === '/comidas'
       && <Header title="Comidas" withSearchButton data-testid="page-title" /> }
-
       {mealsFit
       && <FiltrosMeal
         filts={ arrFilts }
