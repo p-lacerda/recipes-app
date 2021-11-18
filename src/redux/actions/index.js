@@ -6,6 +6,7 @@ export const MEALS_FILT_INFO = 'MEALS_fILT';
 export const DRINKS_FILT_INFO = 'DRINKS_FILT';
 export const MEALS_INFO_BYID = 'MEALS_INFO_BYID';
 export const DRINKS_INFO_BYID = 'DRINKS_INFO_BYID';
+export const DRINKS_INFO_BYNAME = ' DRINKS_INFO_BYNAME';
 
 export const mealsInfo = (response) => ({
   type: MEALS_INFO,
@@ -49,6 +50,13 @@ export const drinksInfoByID = (response) => ({
   },
 });
 
+export const drinksInfoByName = (response) => ({
+  type: DRINKS_INFO_BYNAME,
+  payload: {
+    response,
+  },
+});
+
 export const mealsThunk = () => async (dispatch) => {
   const response = await getApis('https://www.themealdb.com/api/json/v1/1/search.php?s=');
   dispatch(mealsInfo(response));
@@ -78,4 +86,9 @@ export const drinksThunkById = (id) => async (dispatch) => {
   console.log(id);
   const response = await getApis(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
   dispatch(drinksInfoByID(response));
+};
+
+export const drinksByName = (resposta) => async (dispatch) => {
+  const response = resposta;
+  dispatch(drinksInfoByName(response));
 };

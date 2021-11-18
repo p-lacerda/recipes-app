@@ -1,4 +1,5 @@
-import { DRINKS_INFO, DRINKS_FILT_INFO, DRINKS_INFO_BYID } from '../actions';
+import { DRINKS_INFO, DRINKS_FILT_INFO, DRINKS_INFO_BYID,
+  DRINKS_INFO_BYNAME } from '../actions';
 
 export const INITIAL_STATE = {
   state: '',
@@ -14,6 +15,8 @@ function drinksReducer(state = INITIAL_STATE, action) {
     return { ...state, drinksFilt: action.payload };
   case DRINKS_INFO_BYID:
     return { ...state, drinksInfoByID: action.payload };
+  case DRINKS_INFO_BYNAME:
+    return { ...state, drinksRedu: action.payload };
   default:
     return state;
   }
