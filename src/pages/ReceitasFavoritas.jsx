@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
-import RecipesFavoritesCard from '../components/RecipesDoneCard';
+import RecipesFavoritesCard from '../components/RecipesFavoritesCard';
 
 function ReceitasFavoritas() {
   const doneRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -22,7 +22,7 @@ function ReceitasFavoritas() {
 
   return (
     <div>
-      <Header title="Receitas Feitas" withSearchButton={ false } />
+      <Header title="Receitas Favoritas" withSearchButton={ false } />
       <button
         type="button"
         data-testid="filter-by-all-btn"
