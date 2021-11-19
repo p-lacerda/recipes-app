@@ -7,6 +7,8 @@ export const DRINKS_FILT_INFO = 'DRINKS_FILT';
 export const MEALS_INFO_BYID = 'MEALS_INFO_BYID';
 export const DRINKS_INFO_BYID = 'DRINKS_INFO_BYID';
 export const DRINKS_INFO_BYNAME = ' DRINKS_INFO_BYNAME';
+export const MEALS_INGREDIENTS = 'MEALS_INGREDIENTS';
+export const DRINKS_INGREDIENTS = 'DRINKS_INGREDIENTS';
 
 export const mealsInfo = (response) => ({
   type: MEALS_INFO,
@@ -57,6 +59,20 @@ export const drinksInfoByName = (response) => ({
   },
 });
 
+export const mealsIngredientsInfo = (response) => ({
+  type: MEALS_INGREDIENTS,
+  payload: {
+    response,
+  },
+});
+
+export const drinksIngredientsInfo = (response) => ({
+  type: DRINKS_INGREDIENTS,
+  payload: {
+    response,
+  },
+});
+
 export const mealsThunk = () => async (dispatch) => {
   const response = await getApis('https://www.themealdb.com/api/json/v1/1/search.php?s=');
   dispatch(mealsInfo(response));
@@ -91,4 +107,15 @@ export const drinksThunkById = (id) => async (dispatch) => {
 export const drinksByName = (resposta) => async (dispatch) => {
   const response = resposta;
   dispatch(drinksInfoByName(response));
+};
+
+export const mealsIngredients = () => async (dispatch) => {
+  const response = await getApis('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
+  const data = await response.meals;
+  dispatch(mealsIngredientsInfo(data));
+};
+export const drinksIngredients = () => async (dispatch) => {
+  const response = await getApis('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
+  const data = await response.drinks;
+  dispatch(drinksIngredientsInfo(data));
 };
