@@ -37,15 +37,26 @@ function Comidas(props) {
       <div>
         { mealsFit && mealsFit.meals.map((meal, index) => (
           index < NUM_INDEX_MAX
-          && (
-            <Link to={ `/comidas/${meal.idMeal}` }>
+          && (mealsFit.meals.length > 1
+            ? (
+              <Link to={ `/comidas/${meal.idMeal}` }>
+                <Card
+                  index={ index }
+                  img={ meal.strMealThumb }
+                  title={ meal.strMeal }
+                  key={ meal.strMeal }
+                />
+              </Link>
+            )
+            : (
               <Card
                 index={ index }
                 img={ meal.strMealThumb }
                 title={ meal.strMeal }
                 key={ meal.strMeal }
               />
-            </Link>)
+            )
+          )
 
         )) }
       </div>
