@@ -25,7 +25,7 @@ function FiltrosMeal(props) {
   };
 
   return (
-    <div>
+    <div className="filtros-meal">
       <button
         data-testid="All-category-filter"
         type="button"

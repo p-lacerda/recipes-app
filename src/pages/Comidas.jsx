@@ -37,18 +37,20 @@ function Comidas(props) {
         allRecipe={ meals }
       />}
       <main className="comidas__container">
-        { mealsFit
-          && mealsFit.meals.map((meal, index) => (index < NUM_INDEX_MAX
-            && (
-              <Link to={ `/comidas/${meal.idMeal}` }>
-                <Card
-                  index={ index }
-                  img={ meal.strMealThumb }
-                  title={ meal.strMeal }
-                  key={ meal.strMeal }
-                />
-              </Link>)
-          )) }
+        <div>
+          { mealsFit
+            && mealsFit.meals.map((meal, index) => (index < NUM_INDEX_MAX
+              && (
+                <Link to={ `/comidas/${meal.idMeal}` }>
+                  <Card
+                    index={ index }
+                    img={ meal.strMealThumb }
+                    title={ meal.strMeal }
+                    key={ meal.strMeal }
+                  />
+                </Link>)
+            )) }
+        </div>
       </main>
 
       { window.location.pathname === '/comidas' && <Footer /> }

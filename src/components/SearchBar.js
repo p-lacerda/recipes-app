@@ -74,12 +74,12 @@ const SearchBar = ({ drinksInfoByName, mealsInfoByName }) => {
       if (window.location.pathname.includes('/comidas')) {
         getApis(
           `https://www.themealdb.com/api/json/v1/1/search.php?f=${search.text}`,
-        ).then((response) => console.log(response)); // Colocar para a store, para ser mostrada na tela
+        ).then((response) => console.log(response));
       }
       if (window.location.pathname.includes('/bebidas')) {
         getApis(
           `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${search.text}`,
-        ).then((response) => console.log(response)); // Colocar para a store, para ser mostrada na tela
+        ).then((response) => console.log(response));
       }
       break;
     }
@@ -87,7 +87,7 @@ const SearchBar = ({ drinksInfoByName, mealsInfoByName }) => {
 
   return (
     <section className="section-container">
-      <div>
+      <div className="search">
         <input
           type="text"
           name="text"
@@ -96,6 +96,7 @@ const SearchBar = ({ drinksInfoByName, mealsInfoByName }) => {
         />
 
         <button
+          className="search-button"
           type="button"
           data-testid="exec-search-btn"
           onClick={ handleClick }

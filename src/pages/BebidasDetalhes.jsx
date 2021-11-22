@@ -10,6 +10,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { drinksThunkById, mealsThunk } from '../redux/actions';
 import { initValues } from '../services/localStorage';
+import './css/BebidasDetalhes.css';
 
 function BebidasDetalhes(props) {
   const { match: { params: { id } } } = props;
@@ -115,48 +116,60 @@ function BebidasDetalhes(props) {
     <div>
       {drinksById && drinksById.response.drinks
     && (
-      <>
+      <section className="bebidas-detalhes">
         <img
+          className="bebidas-detalhes-hero"
           src={ drinksById.response.drinks[0].strDrinkThumb }
           alt={ drinksById.response.drinks[0].strDrink }
           data-testid="recipe-photo"
         />
-        <p data-testid="recipe-title">
-          { drinksById.response.drinks[0].strDrink }
-        </p>
-        <button
-          type="button"
-          data-testid="share-btn"
-          // https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
-          // Gary Vernon Grubb
-          onClick={ () => {
-            window.navigator.clipboard.writeText(`http://localhost:3000${url}`);
-            setLinkCopy('Link copiado!');
-          } }
-        >
-          <img src={ ShareIcon } alt="Compartilhar" />
-        </button>
-        <button
-          type="button"
-          data-testid="favorite-btn"
-          onClick={ () => favoriteFunction() }
-          src={ heartIcon }
-        >
-          <img src={ heartIcon } alt="favoritar" />
-        </button>
+
+        <div className="bebidas-detalhes-hero__container">
+          <p data-testid="recipe-title">
+            { drinksById.response.drinks[0].strDrink }
+          </p>
+          <button
+            type="button"
+            data-testid="share-btn"
+            // https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
+            // Gary Vernon Grubb
+            onClick={ () => {
+              window.navigator.clipboard.writeText(`http://localhost:3000${url}`);
+              setLinkCopy('Link copiado!');
+            } }
+          >
+            <img src={ ShareIcon } alt="Compartilhar" />
+          </button>
+          <button
+            type="button"
+            data-testid="favorite-btn"
+            onClick={ () => favoriteFunction() }
+            src={ heartIcon }
+          >
+            <img src={ heartIcon } alt="favoritar" />
+          </button>
+        </div>
+
         {linkCopy === 'Link copiado!' && <p>{linkCopy}</p>}
-        <h3 data-testid="recipe-category">
+
+        <h3 className="recipe-category" data-testid="recipe-category">
           {drinksById.response.drinks[0].strCategory}
           {(drinksById.response.drinks[0].strAlcoholic)}
         </h3>
-        <h3> Ingredientes </h3>
-        <ul>
-          { generateIngredients()}
-        </ul>
-        <h3> Instruções </h3>
-        <p data-testid="instructions">
-          { drinksById.response.drinks[0].strInstructions }
-        </p>
+
+        <div className="ingredientes__container">
+          <h3> Ingredientes </h3>
+          <ul>
+            { generateIngredients()}
+          </ul>
+        </div>
+
+        <div className="instrucoes__container">
+          <h3> Instruções </h3>
+          <p data-testid="instructions">
+            { drinksById.response.drinks[0].strInstructions }
+          </p>
+        </div>
 
         <div className="recommendation__container">
           { meals && meals.meals.map(({ strMealThumb, strMeal }, index) => (
@@ -182,7 +195,7 @@ function BebidasDetalhes(props) {
 
         </button>
 
-      </>
+      </section>
     )}
     </div>
   );

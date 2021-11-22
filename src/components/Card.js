@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './css/Card.css';
 
 const Button = ({ img, title, index }) => (
-
-  <div data-testid={ `${index}-recipe-card` }>
+  <div className="card" data-testid={ `${index}-recipe-card` }>
     <img src={ img } alt={ title } data-testid={ `${index}-card-img` } />
-    <h3 data-testid={ `${index}-card-name` }>
-      { title }
-    </h3>
+    <div className="card-title">
+      <h3 data-testid={ `${index}-card-name` }>
+        { title }
+      </h3>
+    </div>
   </div>
 
 );
