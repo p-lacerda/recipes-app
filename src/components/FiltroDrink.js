@@ -11,11 +11,8 @@ function FiltrosDrink(props) {
   useEffect(() => {
     if (Object.keys(drinksFilt).length !== 0) {
       setRecipe(drinksFilt.response);
-      console.log('pedro');
     }
-  }, [drinksFilt]);
-
-  console.log(drinksFilt);
+  }, [drinksFilt, setRecipe]);
 
   const handleClick = (filt) => {
     if (filt !== category) {

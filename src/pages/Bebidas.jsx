@@ -22,7 +22,6 @@ function Bebidas(props) {
 
   useEffect(() => {
     setDrinksFilt(drinks);
-    console.log('oi');
   }, [drinks]);
 
   return (

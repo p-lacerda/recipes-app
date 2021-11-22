@@ -9,11 +9,10 @@ function FiltrosMeal(props) {
   const [category, setCategory] = useState('');
 
   useEffect(() => {
-    if (mealsFilt) {
+    if (Object.keys(mealsFilt).length !== 0) {
       setRecipe(mealsFilt.response);
-      console.log(mealsFilt.response);
     }
-  }, [mealsFilt]);
+  }, [mealsFilt, setRecipe]);
 
   const handleClick = (filt) => {
     if (filt !== category) {
