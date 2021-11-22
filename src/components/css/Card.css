@@ -1,0 +1,12 @@
+.card-title {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  color: rgb(46, 46, 46);
+  font-size: 14px;
+  width: 90%;
+}
+
+.card:active {
+  opacity: 0.6;
+}

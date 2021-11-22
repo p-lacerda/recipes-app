@@ -23,7 +23,6 @@ function Explorar() {
 
   return (
     <div>
-
       { checkHeader() }
       <Explore />
       <Footer />

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Input from '../components/Input';
 import Button from '../components/Button';
+import loginBg from '../images/login.jpg';
+import './css/Login.css';
 
 const Login = () => {
   const history = useHistory();
@@ -33,27 +35,29 @@ const Login = () => {
   };
 
   return (
-    <>
-      <h2>Login</h2>
-      <Input
-        type="email"
-        name="email"
-        onChange={ ({ target: { value } }) => setEmail(value) }
-        dataTestId="email-input"
-      />
-      <Input
-        type="password"
-        name="password"
-        onChange={ ({ target: { value } }) => setPassword(value) }
-        dataTestId="password-input"
-      />
-      <Button
-        dataTestId="login-submit-btn"
-        onClick={ () => handleClick() }
-        buttonName="Entrar"
-        disabled={ loginInfo.disabled }
-      />
-    </>
+    <main className="login__container">
+      <div className="login">
+        <h2>Login</h2>
+        <Input
+          type="email"
+          name="email"
+          onChange={ ({ target: { value } }) => setEmail(value) }
+          dataTestId="email-input"
+        />
+        <Input
+          type="password"
+          name="password"
+          onChange={ ({ target: { value } }) => setPassword(value) }
+          dataTestId="password-input"
+        />
+        <Button
+          dataTestId="login-submit-btn"
+          onClick={ () => handleClick() }
+          buttonName="Entrar"
+          disabled={ loginInfo.disabled }
+        />
+      </div>
+    </main>
   );
 };
 

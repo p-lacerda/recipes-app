@@ -7,6 +7,7 @@ import { drinksThunk } from '../redux/actions';
 import FiltrosDrink from '../components/FiltroDrink';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import './css/Bebidas.css';
 
 function Bebidas(props) {
   const { drinks } = props;
@@ -22,7 +23,6 @@ function Bebidas(props) {
 
   useEffect(() => {
     setDrinksFilt(drinks);
-    console.log('oi');
   }, [drinks]);
 
   return (
@@ -38,21 +38,25 @@ function Bebidas(props) {
           recipe={ drinksFilt.drinks }
           allRecipe={ drinks }
         />}
-        { drinksFilt
-          && drinksFilt.drinks.map((drink, index) => (
-            index < NUM_INDEX_MAX
-            && (
-              <Link to={ `/bebidas/${drink.idDrink}` }>
-                <Card
-                  index={ index }
-                  img={ drink.strDrinkThumb }
-                  title={ drink.strDrink }
-                  key={ drink.strDrink }
-                />
-              </Link>
+        <main className="bebidas__container">
+          <div>
+            { drinksFilt
+              && drinksFilt.drinks.map((drink, index) => (
+                index < NUM_INDEX_MAX
+                && (
+                  <Link to={ `/bebidas/${drink.idDrink}` }>
+                    <Card
+                      index={ index }
+                      img={ drink.strDrinkThumb }
+                      title={ drink.strDrink }
+                      key={ drink.strDrink }
+                    />
+                  </Link>
 
-            )
-          )) }
+                )
+              )) }
+          </div>
+        </main>
       </section>
       { window.location.pathname === '/bebidas' && <Footer /> }
     </div>

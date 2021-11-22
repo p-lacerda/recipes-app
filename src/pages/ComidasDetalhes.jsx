@@ -10,11 +10,15 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { mealsThunkById, drinksThunk } from '../redux/actions';
 import { initValues } from '../services/localStorage';
+import './css/ComidasDetalhes.css';
 
-function ComidasDetalhes(props) {
-  const { match: { params: { id } } } = props;
-  const { match: { url } } = props;
-  const { mealsById, mealsInfoById, drinks, drinksInfo } = props;
+function ComidasDetalhes({
+  mealsById,
+  mealsInfoById,
+  drinks,
+  drinksInfo,
+  match: { url, params: { id } },
+}) {
   const ingredients = [];
   const [buttonChange, setButtonChange] = useState('Iniciar');
   const TIME_OUT = 5000;
@@ -23,14 +27,18 @@ function ComidasDetalhes(props) {
   const history = useHistory();
 
   const verifyProgress = () => {
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const inProgressRecipes = JSON.parse(
+      localStorage.getItem('inProgressRecipes'),
+    );
     if (inProgressRecipes.meals[id]) {
       setButtonChange('Continuar Receita');
     }
   };
   const verifyFavorite = () => {
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const filtraFavoID = favorites.filter((favorite) => favorite.id === String(id));
+    const filtraFavoID = favorites.filter(
+      (favorite) => favorite.id === String(id),
+    );
     if (filtraFavoID.length > 0) {
       setHeartIcon(blackHeartIcon);
     }
@@ -43,14 +51,18 @@ function ComidasDetalhes(props) {
     verifyProgress();
     verifyFavorite();
   }, []);
+
   useEffect(() => {
     setInterval(() => {
       setLinkCopy('no');
     }, TIME_OUT);
   }, [linkCopy]);
+
   const favoriteFunction = () => {
     let favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const favoriteSave = favoriteRecipes.filter((favorite) => favorite.id === String(id));
+    const favoriteSave = favoriteRecipes.filter(
+      (favorite) => favorite.id === String(id),
+    );
     if (favoriteSave.length === 0) {
       favoriteRecipes = [
         {
@@ -78,7 +90,9 @@ function ComidasDetalhes(props) {
   };
   const handleClickInit = async ({ target }) => {
     if (target.innerHTML === 'Iniciar') {
-      const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      const inProgressRecipes = JSON.parse(
+        localStorage.getItem('inProgressRecipes'),
+      );
       inProgressRecipes.meals = {
         ...inProgressRecipes.meals,
         [id]: ingredients,
@@ -91,106 +105,125 @@ function ComidasDetalhes(props) {
     const NUM_INGREDIENTS = 15;
     const meals = mealsById.response.meals[0];
     for (let i = 1; i <= NUM_INGREDIENTS; i += 1) {
-      if (meals[`strIngredient${i}`] !== null && meals[`strIngredient${i}`].length > 0) {
+      if (
+        meals[`strIngredient${i}`] !== null
+        && meals[`strIngredient${i}`].length > 0
+      ) {
         const ingrediente = `${meals[`strIngredient${i}`]}`;
-        const medida = `${(meals[`strMeasure${i}`] ? meals[`strMeasure${i}`] : '')}`;
+        const medida = `${
+          meals[`strMeasure${i}`] ? meals[`strMeasure${i}`] : ''
+        }`;
         ingredients.push(`${`${ingrediente} ${medida}`}`);
       }
     }
 
     return ingredients.map((ingredient, ind) => (
       <li key={ ingredient } data-testid={ `${ind}-ingredient-name-and-measure` }>
-        { `${ingredient}` }
-      </li>));
+        {`${ingredient}`}
+      </li>
+    ));
   };
   const MAXIMUM_CARDS_LENGTH = 6;
 
   return (
     <div>
-      {mealsById && mealsById.response.meals.length > 0
-    && (
-      <>
-        <img
-          src={ mealsById.response.meals[0].strMealThumb }
-          alt={ mealsById.response.meals[0].strMeal }
-          data-testid="recipe-photo"
-        />
-        <p data-testid="recipe-title">
-          { mealsById.response.meals[0].strMeal }
-        </p>
-        <button
-          type="button"
-          data-testid="share-btn"
-          onClick={ () => {
-            window.navigator.clipboard.writeText(`http://localhost:3000${url}`);
-            setLinkCopy('Link copiado!');
-          } }
-        >
-          <img src={ ShareIcon } alt="Compartilhar" />
-        </button>
-        <button
-          type="button"
-          data-testid="favorite-btn"
-          onClick={ () => favoriteFunction() }
-          src={ heartIcon }
-        >
-          <img src={ heartIcon } alt="favoritar" />
-        </button>
-        {linkCopy === 'Link copiado!' && <p>{linkCopy}</p>}
-        <h3 data-testid="recipe-category">
-          {mealsById.response.meals[0].strCategory}
-        </h3>
-        <h3> Ingredientes </h3>
-        <ul>
-          { generateIngredients()}
-        </ul>
-        <h3> Instruções </h3>
-        <p data-testid="instructions">
-          { mealsById.response.meals[0].strInstructions }
-        </p>
-        <div className="video-responsive">
-          <iframe
-            data-testid="video"
-            width="853"
-            height="480"
-            src={ `https://www.youtube.com/embed/${
-              mealsById.response.meals[0].strYoutube.split('=')[1]
-            }` }
-            frameBorder="0"
-            allow={ `accelerometer; autoplay; clipboard-write;
+      {mealsById && mealsById.response.meals.length > 0 && (
+        <>
+          <section className="comidas-detalhes">
+            <img
+              className="comidas-detalhes-hero"
+              src={ mealsById.response.meals[0].strMealThumb }
+              alt={ mealsById.response.meals[0].strMeal }
+              data-testid="recipe-photo"
+            />
+
+            <div className="comidas-detalhes-hero__container">
+              <p data-testid="recipe-title">
+                {mealsById.response.meals[0].strMeal}
+              </p>
+              <button
+                type="button"
+                data-testid="share-btn"
+                onClick={ () => {
+                  window.navigator.clipboard.writeText(
+                    `http://localhost:3000${url}`,
+                  );
+                  setLinkCopy('Link copiado!');
+                } }
+              >
+                <img src={ ShareIcon } alt="Compartilhar" />
+              </button>
+              <button
+                type="button"
+                data-testid="favorite-btn"
+                onClick={ () => favoriteFunction() }
+                src={ heartIcon }
+              >
+                <img src={ heartIcon } alt="favoritar" />
+              </button>
+            </div>
+
+            {linkCopy === 'Link copiado!' && <p>{linkCopy}</p>}
+
+            <h3 className="recipe-category" data-testid="recipe-category">
+              {mealsById.response.meals[0].strCategory}
+            </h3>
+
+            <div className="ingredientes__container">
+              <h3>Ingredientes</h3>
+              <ul>{generateIngredients()}</ul>
+            </div>
+
+            <div className="instrucoes__container">
+              <h3>Instruções</h3>
+              <p data-testid="instructions">
+                {mealsById.response.meals[0].strInstructions}
+              </p>
+            </div>
+
+            <div className="video-responsive">
+              <iframe
+                data-testid="video"
+                width="853"
+                height="480"
+                src={ `https://www.youtube.com/embed/${
+                  mealsById.response.meals[0].strYoutube.split('=')[1]
+                }` }
+                frameBorder="0"
+                allow={ `accelerometer; autoplay; clipboard-write;
             encrypted-media; gyroscope; picture-in-picture` }
-            allowFullScreen
-            title="Embedded youtube"
-          />
-        </div>
-
-        <div className="recommendation__container">
-          { drinks && drinks.drinks.map(({ strDrinkThumb, strDrink }, index) => (
-            index < MAXIMUM_CARDS_LENGTH
-              && (<RecommendationCard
-                img={ strDrinkThumb }
-                title={ strDrink }
-                index={ index }
+                allowFullScreen
+                title="Embedded youtube"
               />
-              )
-          ))}
-        </div>
+            </div>
+          </section>
 
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          className="button-init"
-          onClick={ (e) => {
-            handleClickInit(e);
-            history.push(`/comidas/${id}/in-progress`);
-          } }
-        >
-          {buttonChange}
+          <div className="recommendation__container">
+            {drinks
+              && drinks.drinks.map(
+                ({ strDrinkThumb, strDrink }, index) => index < MAXIMUM_CARDS_LENGTH && (
+                  <RecommendationCard
+                    img={ strDrinkThumb }
+                    title={ strDrink }
+                    index={ index }
+                  />
+                ),
+              )}
+          </div>
 
-        </button>
-
-      </>
-    )}
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            className="button-init"
+            onClick={ (e) => {
+              handleClickInit(e);
+              history.push(`/comidas/${id}/in-progress`);
+            } }
+          >
+            {buttonChange}
+          </button>
+        </>
+      )}
     </div>
   );
 }
