@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import './css/Profile.css';
 
 function Perfil() {
   const history = useHistory();
@@ -16,7 +17,7 @@ function Perfil() {
   return (
     <>
       <Header title="Perfil" data-testid="page-title" />
-      <div>
+      <div className="profile-page">
         <p data-testid="profile-email">{ playerEmail }</p>
         <Link to="/receitas-feitas">
           <button

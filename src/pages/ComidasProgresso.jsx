@@ -10,6 +10,7 @@ import CheckboxComidas from '../components/CheckboxComidas';
 import { initValues,
   verifyDisableButtonComidas, verifyFavorite } from '../services/localStorage';
 import '../components/css/Checkbox.css';
+import './css/ComidasProgresso.css';
 
 function ComidasProgresso(props) {
   const { mealsInfoById, mealsById } = props;
@@ -149,46 +150,59 @@ function ComidasProgresso(props) {
   };
   return (
     <>
-      <p>ComidasProgresso</p>
+      <p />
       {mealsById && mealsById.response.meals
      && (
-       <>
-         <img
-           src={ mealsById.response.meals[0].strMealThumb }
-           alt="imagem receita bebida"
-           data-testid="recipe-photo"
-         />
-         <h3 data-testid="recipe-title">{mealsById.response.meals[0].strMeals}</h3>
-         <button
-           type="button"
-           data-testid="share-btn"
-           // https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
-           // Gary Vernon Grubb
-           onClick={ () => {
-             window.navigator.clipboard.writeText(`http://localhost:3000${url.replace('/in-progress', '')}`);
-             setLinkCopy('Link copiado!');
-           } }
-         >
-           <img src={ ShareIcon } alt="Compartilhar" />
-         </button>
-         <button
-           type="button"
-           data-testid="favorite-btn"
-           onClick={ () => favoriteFunction() }
-           src={ heartIcon }
-         >
-           <img src={ heartIcon } alt="favoritar" />
-         </button>
+       <section className="comidas-progresso">
+         <div className="comidas-progresso-hero">
+           <img
+             src={ mealsById.response.meals[0].strMealThumb }
+             alt="imagem receita bebida"
+             data-testid="recipe-photo"
+           />
+           <h3 data-testid="recipe-title">{mealsById.response.meals[0].strMeals}</h3>
+
+           <div className="comidas-progresso-hero__container">
+             <button
+               type="button"
+               data-testid="share-btn"
+               // https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
+               // Gary Vernon Grubb
+               onClick={ () => {
+                 window.navigator.clipboard.writeText(`http://localhost:3000${url.replace('/in-progress', '')}`);
+                 setLinkCopy('Link copiado!');
+               } }
+             >
+               <img src={ ShareIcon } alt="Compartilhar" />
+             </button>
+             <button
+               type="button"
+               data-testid="favorite-btn"
+               onClick={ () => favoriteFunction() }
+               src={ heartIcon }
+             >
+               <img src={ heartIcon } alt="favoritar" />
+             </button>
+           </div>
+         </div>
+
          {linkCopy === 'Link copiado!' && <p>{linkCopy}</p>}
-         <h3 data-testid="recipe-category">
+         <h3 className="recipe-category" data-testid="recipe-category">
            {mealsById.response.meals[0].strCategory}
          </h3>
-         <h3> Ingredientes </h3>
-         {generateIngredients()}
-         <h3> Instruções </h3>
-         <p data-testid="instructions">
-           { mealsById.response.meals[0].strInstructions }
-         </p>
+
+         <div className="ingredientes__container">
+           <h3> Ingredientes </h3>
+           { generateIngredients() }
+         </div>
+
+         <div className="instrucoes__container">
+           <h3> Instruções </h3>
+           <p data-testid="instructions">
+             { mealsById.response.meals[0].strInstructions }
+           </p>
+         </div>
+
          <button
            type="button"
            className="finish-recipe-btn"
@@ -199,7 +213,7 @@ function ComidasProgresso(props) {
            Finalizar Receita
 
          </button>
-       </>
+       </section>
      )}
     </>
   );

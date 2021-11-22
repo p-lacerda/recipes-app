@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import SearchBar from './SearchBar';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import './css/Header.css';
@@ -30,9 +31,7 @@ const Header = ({ title, withSearchButton }) => {
           )}
         </div>
       </header>
-      {showSearch && (
-        <SearchBar />
-      )}
+      {showSearch && <SearchBar />}
     </>
   );
 };

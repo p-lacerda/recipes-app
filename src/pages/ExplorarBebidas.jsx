@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import '../components/css/Explore.css';
 
 function ExplorarBebidas() {
   const [surpriseDrink, setSurpriseDrink] = useState(0);
@@ -38,17 +39,19 @@ function ExplorarBebidas() {
     <div>
       {window.location.pathname === '/explorar/bebidas'
         && <Header title="Explorar Bebidas" data-testid="page-title" />}
+      <div className="explore-nav">
+        <Link to="/explorar/bebidas/ingredientes">
+          <button
+            type="button"
+            data-testid="explore-by-ingredient"
+          >
+            {' '}
+            Por Ingredientes
+          </button>
+        </Link>
+        { random() }
+      </div>
 
-      <Link to="/explorar/bebidas/ingredientes">
-        <button
-          type="button"
-          data-testid="explore-by-ingredient"
-        >
-          {' '}
-          Por Ingredientes
-        </button>
-      </Link>
-      {random()}
       <Footer />
     </div>
   );

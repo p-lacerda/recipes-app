@@ -1,14 +1,9 @@
 header {
   align-items: center;
-  background-color: gainsboro;
-  border-top: 1px solid lightgray;
   display: flex;
-  height: 12px;
-  justify-content: space-around;
-  padding-block: 2rem;
-  position: sticky;
-  top: 0;
-  width: 100%;
+  justify-content: space-between;
+  margin: auto;
+  width: 90%;
 }
 
 header img {
@@ -22,20 +17,52 @@ header button {
   cursor: pointer;
 }
 
+h3 {
+  z-index: -1;
+}
+
 .search {
   align-items: center;
-  border: 1px solid gainsboro;
   border-radius: 18px;
+  border: 1px solid gainsboro;
   display: flex;
   justify-content: center;
   padding: 0.4em;
+  transition: 0.4s ease-in-out;
 }
 
 .search input {
-  background-color: white;
   border: none;
-  border-radius: 18px;
-  height: 100%;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  height: 21px;
   outline: none;
   padding-left: 10px;
+  width: 80%;
+}
+
+.search-button {
+  background-color: blue;
+  border-bottom-right-radius: 8px;
+  border-top-right-radius: 8px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  height: 24px;
+}
+
+.section-container {
+  align-items: center;
+  background-color: rgb(216, 216, 216);
+  display: flex;
+  flex-flow: column wrap;
+  font-size: 12px;
+  height: 4rem;
+  justify-content: center;
+  width: 100vw;
+}
+
+.radios {
+  display: flex;
+  gap: 10px;
 }

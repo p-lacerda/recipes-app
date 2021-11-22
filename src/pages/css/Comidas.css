@@ -1,0 +1,44 @@
+.comidas__container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 80px;
+  width: 100%;
+}
+
+.comidas__container img {
+  border-radius: 8px;
+  width: 100%;
+}
+
+.comidas__container a {
+  text-decoration: none;
+}
+
+.comidas__container div {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin: auto;
+  width: 90%;
+}
+
+.filtros-meal {
+  align-items: center;
+  background-color: rgb(228, 228, 228);
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-block: 10px;
+  padding: 8px 16px;
+}
+
+.filtros-meal button {
+  background-color: transparent;
+  border: none;
+  color: rgb(141, 92, 0);
+  cursor: pointer;
+  opacity: 1;
+}

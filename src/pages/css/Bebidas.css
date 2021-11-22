@@ -1,0 +1,44 @@
+.bebidas__container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 80px;
+  width: 100%;
+}
+
+.bebidas__container img {
+  border-radius: 8px;
+  width: 100%;
+}
+
+.bebidas__container a {
+  text-decoration: none;
+}
+
+.bebidas__container div {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin: auto;
+  width: 90%;
+}
+
+.filtros-drink {
+  align-items: center;
+  background-color: rgb(228, 228, 228);
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-block: 10px;
+  padding: 8px 16px;
+}
+
+.filtros-drink button {
+  background-color: transparent;
+  border: none;
+  color: rgb(5, 5, 117);
+  cursor: pointer;
+  opacity: 1;
+}

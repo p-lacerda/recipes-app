@@ -7,6 +7,7 @@ import Card from '../components/Card';
 import Header from '../components/Header';
 import FiltrosMeal from '../components/FiltroMeal';
 import Footer from '../components/Footer';
+import './css/Comidas.css';
 
 function Comidas(props) {
   const { meals } = props;
@@ -27,6 +28,7 @@ function Comidas(props) {
     <section>
       { window.location.pathname === '/comidas'
       && <Header title="Comidas" withSearchButton data-testid="page-title" /> }
+
       {mealsFit
       && <FiltrosMeal
         filts={ arrFilts }
@@ -34,33 +36,36 @@ function Comidas(props) {
         recipe={ mealsFit.meals }
         allRecipe={ meals }
       />}
-      <div>
-        { mealsFit && mealsFit.meals.map((meal, index) => (
-          index < NUM_INDEX_MAX
-          && (mealsFit.meals.length > 1
-            ? (
-              <Link to={ `/comidas/${meal.idMeal}` }>
+
+      <main className="comidas__container">
+        <div>
+          { mealsFit && mealsFit.meals.map((meal, index) => (
+            index < NUM_INDEX_MAX
+            && (mealsFit.meals.length > 1
+              ? (
+                <Link to={ `/comidas/${meal.idMeal}` }>
+                  <Card
+                    index={ index }
+                    img={ meal.strMealThumb }
+                    title={ meal.strMeal }
+                    key={ meal.strMeal }
+                  />
+                </Link>
+              )
+              : (
                 <Card
                   index={ index }
                   img={ meal.strMealThumb }
                   title={ meal.strMeal }
                   key={ meal.strMeal }
                 />
-              </Link>
+              )
             )
-            : (
-              <Card
-                index={ index }
-                img={ meal.strMealThumb }
-                title={ meal.strMeal }
-                key={ meal.strMeal }
-              />
-            )
-          )
 
-        )) }
-      </div>
-
+          )) }
+        </div>
+      </main>
+      
       { window.location.pathname === '/comidas' && <Footer /> }
     </section>
   );
@@ -72,7 +77,7 @@ Comidas.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  meals: state.mealsReducer.response,
+  meals: state.mealsReducer.mealsRedu.response,
 });
 
 const mapDispatchToProps = (dispatch) => ({
