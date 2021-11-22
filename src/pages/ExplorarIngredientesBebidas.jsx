@@ -18,8 +18,8 @@ function ExplorarIngredientesBebidas(props) {
     <div>
       <Header title="Explorar Ingredientes" withSearchButton={ false } />
       <Footer />
-      {drinksIngredientsProps
-      && drinksIngredientsProps.map((ingredient, index) => (
+      {drinksIngredientsProps && drinksIngredientsProps.response
+      && drinksIngredientsProps.response.map((ingredient, index) => (
         index < MAX_NUMBER_CARDS
         && (<IngredientCard
           key={ ingredient.idIngredient1 }
@@ -38,7 +38,7 @@ ExplorarIngredientesBebidas.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  drinksIngredientsProps: state.IngredientsReducer.ingredients.response,
+  drinksIngredientsProps: state.IngredientsReducer.ingredients,
 });
 
 const mapDispatchToProps = (dispatch) => ({
