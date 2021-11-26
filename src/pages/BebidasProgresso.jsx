@@ -99,7 +99,15 @@ function BebidasProgresso(props) {
       }
     }
   };
+
+  const createStorageDoneRecipes = () => {
+    if (!localStorage.doneRecipes || localStorage.doneRecipes === undefined) {
+      const init = [];
+      localStorage.setItem('doneRecipes', JSON.stringify(init));
+    }
+  };
   useEffect(() => {
+    createStorageDoneRecipes();
     initValues();
     drinksInfoById(id);
     verifyFavorite(id, setHeartIcon, blackHeartIcon);

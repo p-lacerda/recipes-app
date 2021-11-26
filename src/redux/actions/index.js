@@ -8,6 +8,11 @@ export const MEALS_INFO_BYID = 'MEALS_INFO_BYID';
 export const MEALS_INFO_BYNAME = 'MEALS_INFO_BYNAME';
 export const DRINKS_INFO_BYID = 'DRINKS_INFO_BYID';
 export const DRINKS_INFO_BYNAME = ' DRINKS_INFO_BYNAME';
+export const MEALS_INGREDIENTS = 'MEALS_INGREDIENTS';
+export const DRINKS_INGREDIENTS = 'DRINKS_INGREDIENTS';
+export const DRINKS_INFO_BYINGREDIENTS = 'DRINKS_INFO_BYINGREDIENTS';
+export const BLOCK_DRINK = 'BLOCK_DRINK';
+
 
 export const mealsInfo = (response) => ({
   type: MEALS_INFO,
@@ -53,6 +58,43 @@ export const drinksInfoByID = (response) => ({
 
 export const drinksInfoByName = (response) => ({
   type: DRINKS_INFO_BYNAME,
+  payload: {
+    response,
+  },
+});
+
+export const mealsIngredientsInfo = (response) => ({
+  type: MEALS_INGREDIENTS,
+  payload: {
+    response,
+  },
+});
+
+export const drinksIngredientsInfo = (response) => {
+  console.log('testa2');
+  return {
+
+    type: DRINKS_INGREDIENTS,
+    payload: {
+      response,
+    },
+  };
+};
+
+export const drinksByIngredientsInfo = (response) => {
+  console.log('testa');
+  return (
+    {
+      type: DRINKS_INFO_BYINGREDIENTS,
+      payload: {
+        response,
+      },
+
+    });
+};
+
+export const blockDrinksInfo = (response) => ({
+  type: BLOCK_DRINK,
   payload: {
     response,
   },
@@ -104,4 +146,31 @@ export const drinksThunkById = (id) => async (dispatch) => {
   console.log(id);
   const response = await getApis(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
   dispatch(drinksInfoByID(response));
+};
+
+export const drinksByName = (resposta) => async (dispatch) => {
+  const response = resposta;
+  dispatch(drinksInfoByName(response));
+};
+
+export const mealsIngredients = () => async (dispatch) => {
+  const response = await getApis('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
+  const data = await response.meals;
+  dispatch(mealsIngredientsInfo(data));
+};
+export const drinksIngredients = () => async (dispatch) => {
+  const response = await getApis('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
+  const data = await response.drinks;
+  dispatch(drinksIngredientsInfo(data));
+};
+
+export const drinksByIngredients = (ingredient) => async (dispatch) => {
+  const response = await getApis(
+    `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`,
+  );
+  dispatch(drinksByIngredientsInfo(response));
+};
+
+export const blockDrinksThunk = (comp) => (dispatch) => {
+  dispatch(blockDrinksInfo(comp));
 };

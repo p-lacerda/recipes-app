@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import ShareIcon from '../images/shareIcon.svg';
 
 const RecipesDoneCard = (props) => {
-  const { src, index, name, date, category, tags, area, type, alcoholic, id } = props;
+  const { src,
+    index, name, date, category, tags, area, type, alcoholic, id } = props;
   const [linkCopy, setLinkCopy] = useState('no');
   const url = type === 'comida' ? `http://localhost:3000/comidas/${id}`
     : `http://localhost:3000/bebidas/${id}`;

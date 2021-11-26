@@ -10,7 +10,7 @@ import Footer from '../components/Footer';
 import './css/Bebidas.css';
 
 function Bebidas(props) {
-  const { drinks } = props;
+  const { drinks, block } = props;
   const NUM_INDEX_MAX = 12;
   const arrFilts = [
     'Ordinary Drink', 'Cocktail', 'Milk / Float / Shake', 'Other/Unknown', 'Cocoa'];
@@ -18,7 +18,9 @@ function Bebidas(props) {
 
   useEffect(() => {
     const { drinksInfo } = props;
-    drinksInfo();
+    if (!block) {
+      drinksInfo();
+    }
   }, []);
 
   useEffect(() => {
@@ -66,10 +68,12 @@ function Bebidas(props) {
 Bebidas.propTypes = {
   drinksInfo: PropTypes.func.isRequired,
   drinks: PropTypes.arrayOf(PropTypes.any).isRequired,
+  block: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   drinks: state.drinksReducer.drinksRedu.response,
+  block: state.drinksReducer.block,
 });
 
 const mapDispatchToProps = (dispatch) => ({
