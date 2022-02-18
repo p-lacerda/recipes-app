@@ -5,7 +5,6 @@ import SearchBar from './SearchBar';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import './css/Header.css';
-import SearchBar from './SearchBar';
 
 const Header = ({ title, withSearchButton }) => {
   const [showSearch, setShowSearch] = useState(false);
