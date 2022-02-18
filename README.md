@@ -20,10 +20,10 @@ O projeto de Recipes App é uma aplicação onde você pode buscar receitas de c
 
 ## Funcionalidades
 
-- Temas dark e light
-- Preview em tempo real
-- Modo tela cheia
-- Multiplataforma
+- Favoritar receitas
+- Checklist de ingredientes
+- Login com email e senha
+- Mobile-first CSS
 
 
 ## Rodando localmente
